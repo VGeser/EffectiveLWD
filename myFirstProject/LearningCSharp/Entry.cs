@@ -2,6 +2,7 @@
 {
     public class Entry
     {
+        public int Id { get; }
         public ChoiceCondition Choice { get; }
 
         public Parameters Param { get; }
@@ -61,10 +62,12 @@
         }
 
         public Entry(ChoiceCondition choiceCondition,
-            Parameters parameters)
+            Parameters parameters,
+            int id)
         {
             Choice = choiceCondition;
             Param = parameters;
+            Id = id;
         }
     }
 }
