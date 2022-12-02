@@ -3,7 +3,8 @@
 public class Table
 {
     private readonly List<Entry> _table;
-
+    //Default int value is 0
+    private int _currentRule;
     public Table()
     {
         _table = new List<Entry>();
@@ -25,13 +26,23 @@ public class Table
         return a.Id - b.Id;
     }
 
-    public Entry? GetNextRule(Entry.ChoiceCondition condition)
+    public Entry? GetAndSetNextRule(Entry.ChoiceCondition condition)
     {
-        foreach (Entry e  in _table)
+        for (int i = _currentRule; i < _table.Count; i++)
         {
-            if (e.Choice.Equals(condition))
+            if (_table[i].Choice.Equals(condition))
             {
-                return e;
+                _currentRule = i;
+                return _table[i];
+            }
+        }
+        
+        for (int i = 0; i < _currentRule; i++)
+        {
+            if (_table[i].Choice.Equals(condition))
+            {
+                _currentRule = i;
+                return _table[i];
             }
         }
 
