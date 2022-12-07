@@ -7,4 +7,10 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Reference Include="Ipgg.LasParser">
+        <HintPath>..\..\..\..\..\..\Downloads\Ipgg.LasParser.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>
