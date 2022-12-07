@@ -53,4 +53,9 @@ public class Table
 
         return null;
     }
+
+    public Entry GetCurrentRule()
+    {
+        return _table[_currentRule];
+    }
 }
