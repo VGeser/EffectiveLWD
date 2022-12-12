@@ -2,14 +2,14 @@ namespace LearningCSharp;
 
 public class Slicer
 {
-    private Dictionary<String, Double?[]> _curves;
+    private readonly Dictionary<String, Double?[]> _curves;
 
     public Slicer(Dictionary<String, Double?[]> curves)
     {
         _curves = curves;
     }
 
-    public Dictionary<String, Double?> getSlice(int n)
+    public Dictionary<String, Double?> GetSlice(int n)
     {
         Dictionary<String, Double?> res = new Dictionary<string, double?>();
         foreach (KeyValuePair<String, Double?[]> pair in _curves)

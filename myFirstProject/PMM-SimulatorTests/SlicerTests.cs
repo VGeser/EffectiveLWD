@@ -4,8 +4,8 @@ namespace MMM_SimulatorTests;
 
 public class SlicerTests
 {
-    private Slicer _slicer;
-    private Dictionary<String, Double?[]> _dictionary;
+    private readonly Slicer _slicer;
+    private readonly Dictionary<String, Double?[]> _dictionary;
 
     public SlicerTests()
     {
@@ -17,7 +17,7 @@ public class SlicerTests
     [Test]
     public void TestSlicing()
     {
-        Dictionary<String, Double?> dictionary = _slicer.getSlice(0);
+        Dictionary<String, Double?> dictionary = _slicer.GetSlice(0);
         foreach (KeyValuePair<String, Double?> pair in dictionary)
         {
             Assert.AreEqual(pair.Value, _dictionary[pair.Key][0]);

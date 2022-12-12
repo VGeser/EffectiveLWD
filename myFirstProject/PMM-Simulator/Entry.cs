@@ -45,22 +45,28 @@
 
         public readonly struct ChoiceBoundaries
         {
-            private readonly int _frequency;
-            public int Frequency => _frequency;
+            public int Frequency { get; }
 
-            private readonly int _initialPasses;
-            public int InitialPasses => _initialPasses;
+            public int InitialPasses { get; }
 
             public ChoiceBoundaries(int frequency, int initialPasses)
             {
-                this._frequency = frequency;
-                this._initialPasses = initialPasses;
+                this.Frequency = frequency;
+                this.InitialPasses = initialPasses;
             }
         }
 
         public class Parameters
         {
-            //TODO: find specification
+            public String Mark { get; }
+
+            public List<(string,int)> EncodedCurvesWithPrecision { get; }
+
+            public Parameters(string mark, List<(string, int)> curves)
+            {
+                Mark = mark;
+                EncodedCurvesWithPrecision = curves;
+            }
         }
 
         public Entry(ChoiceCondition choiceCondition,
