@@ -21,27 +21,27 @@ public class TableTests
         _table.AddRule(new Entry(
             truthy,
             new Entry.ChoiceBoundaries(1, 0),
-            new Entry.Parameters(),
+            new Entry.Parameters("S0", new List<(string, int)>()),
             0));
         _table.AddRule(new Entry(
             truthy,
             new Entry.ChoiceBoundaries(1, 0),
-            new Entry.Parameters(),
+            new Entry.Parameters("S1", new List<(string, int)>()),
             1));
         _table.AddRule(new Entry(
             truthy,
             new Entry.ChoiceBoundaries(1, 1),
-            new Entry.Parameters(),
+            new Entry.Parameters("S2", new List<(string, int)>()),
             2));
         _table.AddRule(new Entry(
             truthy,
             new Entry.ChoiceBoundaries(2, 0),
-            new Entry.Parameters(),
+            new Entry.Parameters("S3", new List<(string, int)>()),
             3));
         _table.AddRule(new Entry(
             new Entry.ChoiceCondition(true, false, true),
             new Entry.ChoiceBoundaries(1, 0),
-            new Entry.Parameters(),
+            new Entry.Parameters("S4", new List<(string, int)>()),
             4));
     }
 
