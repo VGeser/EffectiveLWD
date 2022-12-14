@@ -1,4 +1,6 @@
-namespace MainRestore;
+using System.Globalization;
+
+namespace LearningCSharp;
 
 public class Encoder
 {
@@ -11,7 +13,13 @@ public class Encoder
             if (value != null)
             {
                 value = Math.Round(value.Value, curve.Item2);
-                string hexPart = BitConverter.DoubleToInt64Bits(value.Value).ToString("X");
+                string hexPart = value.Value.ToString(CultureInfo.CurrentCulture);
+                hexPart = DeletePunctuationAndTrailing(hexPart);
+                if (hexPart.Length < curve.Item2)
+                {
+                    hexPart=hexPart.PadRight(curve.Item2, '0');
+                }
+                hexPart = hexPart.Substring(0, curve.Item2);
                 message += hexPart;
             }
             else
@@ -21,5 +29,14 @@ public class Encoder
         }
 
         return message;
+    }
+
+    private String DeletePunctuationAndTrailing(string s)
+    {
+        string res = s;
+        res=res.Replace(",", "");
+        res=res.Replace("-", "");
+        res.TrimStart('0');
+        return res;
     }
 }
