@@ -7,7 +7,7 @@ public class Simulator
 
     public Simulator(Table table, Dictionary<String, Double?[]> data)
     {
-        this._table = table;
+        _table = table;
         _slicer = new Slicer(data);
     }
 
@@ -27,7 +27,6 @@ public class Simulator
         {
             (int, int, int, string) stepRes = (-1,-1,-1,"");
             stepRes.Item1 = slice;
-            
             String message = encoder.Encode(current.Param, _slicer.GetSlice(slice * (messageInterval / fileInterval)));
             stepRes.Item4 = message;
 

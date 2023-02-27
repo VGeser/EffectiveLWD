@@ -8,7 +8,8 @@ public class MainClass
 
         (string, int)[] a0 = { ("WGHT", 3), ("POS", 3) };
         (string, int)[] a1 = { ("STP", 1), ("PRES", 4) };
-        (string, int)[] a2 = { ("WGHT", 3), ("PRES", 4) };
+        (string, int)[] a2 = { ("WGHT", 3), ("PRES", 4), ("STP", 1) };
+        (string, int)[] a3 = { ("POS", 3), ("WGHT", 3) };
 
         table.AddRule(new Entry(
             new Entry.ChoiceCondition(true, true, true),
@@ -31,7 +32,7 @@ public class MainClass
         table.AddRule(new Entry(
             new Entry.ChoiceCondition(true, false, true),
             new Entry.ChoiceBoundaries(1, 0),
-            new Entry.Parameters("S3", new List<(string, int)>(a0)),
+            new Entry.Parameters("S3", new List<(string, int)>(a3)),
             3));
 
         LasReader reader = new LasReader();
@@ -51,7 +52,7 @@ public class MainClass
         
         
         Simulator simulator = new Simulator(table, dictionary);
-        (int, int, int, string)[] result = simulator.Simulate(times, states, 250, 4000);
+        (int, int, int, string)[] result = simulator.Simulate(times, states, 4000, 4000);
 
         foreach (var stepRes in result)
         {
