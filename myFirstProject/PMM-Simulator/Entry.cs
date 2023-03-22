@@ -60,12 +60,70 @@
         {
             public String Mark { get; }
 
-            public List<(string,int)> EncodedCurvesWithPrecision { get; }
+            //public List<(string,int)> EncodedCurvesWithPrecision { get; }
+            public List<EncodedParameter> EncodedParameters { get; set; }
 
-            public Parameters(string mark, List<(string, int)> curves)
+            public Parameters(string mark)
             {
                 Mark = mark;
-                EncodedCurvesWithPrecision = curves;
+            }
+        }
+
+        public abstract class EncodedParameter
+        {
+            private Tuple<double> _range;
+            private double _step;
+            public string Mnemonic;
+
+            protected EncodedParameter(string mnemonic, Tuple<double> range, double step)
+            {
+                Mnemonic = mnemonic;
+                _range = range;
+                _step = step;
+            }
+
+            public abstract int ToRepresentation(double? value);
+        }
+
+        class SimpleEncodedParameter : EncodedParameter
+        {
+            public override int ToRepresentation(double? value)
+            {
+                
+                if(value is not null)
+                {
+                    return (int) Math.Round(value.Value); 
+                    // есть еще Floor, который округлит 3.9 -> 3
+                }
+                throw new  ArgumentNullException();
+            }
+
+            public SimpleEncodedParameter(string mnemonic, Tuple<double> range, double step) : 
+                base(mnemonic, range, step)
+            {
+                
+            }
+        }
+
+        class StepChangingEncodedParameter : EncodedParameter
+        {
+            public StepChangingEncodedParameter(string mnemonic, Tuple<double> range, 
+                                                double step, double requiredStep) :
+                base(mnemonic, range, step)
+            {
+                RequiredStep = requiredStep;
+            }
+
+            double RequiredStep { get; set; }
+            public override int ToRepresentation(double? value)
+            {
+                if (value is not null)
+                {
+                    double res = (value.Value / RequiredStep);
+                    int intRes = (int)Math.Round(res);
+                    return (int) (intRes * RequiredStep);
+                }
+                throw new  ArgumentNullException();
             }
         }
 
