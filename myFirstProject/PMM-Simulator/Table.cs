@@ -40,7 +40,7 @@ public class Table
             }
         }
         _currentRound++;
-        for (int i = 0; i < _currentRule; i++)
+        for (int i = 0; i <= _currentRule; i++)
         {
             if (_table[i].Choice.Equals(condition)
                 && _table[i].Boundaries.InitialPasses < _currentRound
