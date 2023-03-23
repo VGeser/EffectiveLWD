@@ -7,19 +7,19 @@ public class Encoder
     public string Encode(Entry.Parameters parameters, Dictionary<String, Double?> slice)
     {
         string message = parameters.Mark;
-        foreach (var curve in parameters.EncodedCurvesWithPrecision)
+        foreach (var param in parameters.EncodedParameters)
         {
-            double? value = slice[curve.Item1];
+            double? value = slice[param.Mnemonic];
             if (value != null)
             {
-                value = Math.Round(value.Value, curve.Item2);
-                string hexPart = value.Value.ToString(CultureInfo.CurrentCulture);
+                int intVal = param.ToRepresentation(value);
+                string hexPart = intVal.ToString(CultureInfo.CurrentCulture);
                 hexPart = DeletePunctuationAndTrailing(hexPart);
-                if (hexPart.Length < curve.Item2)
+                if (hexPart.Length < intVal)
                 {
-                    hexPart=hexPart.PadRight(curve.Item2, '0');
+                    hexPart=hexPart.PadRight(intVal, '0');
                 }
-                hexPart = hexPart.Substring(0, curve.Item2);
+                hexPart = hexPart.Substring(0, intVal);
                 message += hexPart;
             }
             else
