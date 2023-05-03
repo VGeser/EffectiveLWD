@@ -73,16 +73,27 @@
         {
             private Tuple<double> _range;
             private double _step;
+            private int _radix;
+            private int _symbols;
+            private EncodingHistogram _histogram;
             public string Mnemonic;
 
-            protected EncodedParameter(string mnemonic, Tuple<double> range, double step)
+            protected EncodedParameter(string mnemonic, Tuple<double> range, double step, int radix, int symbols, EncodingHistogram histogram)
             {
+                _histogram = histogram;
                 Mnemonic = mnemonic;
                 _range = range;
                 _step = step;
+                _symbols = symbols;
+                _radix = radix;
             }
 
             public abstract int ToRepresentation(double? value);
+
+            public List<Int32> Lookup(Int32 repres)
+            {
+                return _histogram.Lookup(repres, _radix, _symbols);
+            }
         }
 
         class SimpleEncodedParameter : EncodedParameter
@@ -98,8 +109,8 @@
                 throw new  ArgumentNullException();
             }
 
-            public SimpleEncodedParameter(string mnemonic, Tuple<double> range, double step) : 
-                base(mnemonic, range, step)
+            public SimpleEncodedParameter(string mnemonic, Tuple<double> range, double step, int radix, int symbols, EncodingHistogram histogram) : 
+                base(mnemonic, range, step, radix, symbols, histogram)
             {
                 
             }
@@ -107,9 +118,8 @@
 
         class StepChangingEncodedParameter : EncodedParameter
         {
-            public StepChangingEncodedParameter(string mnemonic, Tuple<double> range, 
-                                                double step, double requiredStep) :
-                base(mnemonic, range, step)
+            public StepChangingEncodedParameter(string mnemonic, Tuple<double> range, double step, int radix, int symbols, EncodingHistogram histogram, double requiredStep) : 
+                base(mnemonic, range, step, radix, symbols, histogram)
             {
                 RequiredStep = requiredStep;
             }
