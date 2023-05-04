@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
-        <RootNamespace>MMM_SimulatorTests</RootNamespace>
+        <TargetFramework>net7.0-windows</TargetFramework>
+        <RootNamespace>SimulatorSubsystemTest</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
 

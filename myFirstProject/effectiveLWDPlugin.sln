@@ -1,8 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33130.400
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMM-Simulator", "PMM-Simulator\PMM-Simulator.csproj", "{75CA4D1F-C489-48B4-978B-FC043523D3CF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMM-SimulatorTests", "PMM-SimulatorTests\PMM-SimulatorTests.csproj", "{A21E44E6-70B4-494F-BCC4-01C7E0D65D20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleApp", "ExampleApp\ExampleApp.csproj", "{3B62A437-0F3E-4E2C-B3F6-639C274F3A51}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +23,15 @@ Global
 		{A21E44E6-70B4-494F-BCC4-01C7E0D65D20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A21E44E6-70B4-494F-BCC4-01C7E0D65D20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A21E44E6-70B4-494F-BCC4-01C7E0D65D20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B62A437-0F3E-4E2C-B3F6-639C274F3A51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B62A437-0F3E-4E2C-B3F6-639C274F3A51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B62A437-0F3E-4E2C-B3F6-639C274F3A51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B62A437-0F3E-4E2C-B3F6-639C274F3A51}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0FC91825-23D2-4939-A150-971DB8DCC2B7}
 	EndGlobalSection
 EndGlobal

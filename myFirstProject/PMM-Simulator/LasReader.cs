@@ -1,6 +1,6 @@
-﻿namespace LearningCSharp;
+﻿using Ipgg.LasParser;
 
-using Ipgg.LasParser;
+namespace SimulatorSubsystem;
 
 public class LasReader
 {
