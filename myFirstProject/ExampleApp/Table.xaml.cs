@@ -20,13 +20,14 @@ namespace ExampleApp
         {
             InitializeComponent();
             _holder = new TableDataHolder();
+            _tableController = new TableController(_holder);
             FilePrinting();
         }
 
         private void FilePrinting()
         {
             string file = Download.f_name;
-            int slash = file.LastIndexOf("\\");
+            int slash = file.LastIndexOf("\\", StringComparison.Ordinal);
             FileName.Text = file.Substring(slash + 1);
         //     //FileName.Text = "Hello";
         }
@@ -202,20 +203,36 @@ namespace ExampleApp
             }
         }
 
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        // private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        // {
+
+        //     NavigationService.Navigate(new Result());
+        // }
+        private void Button_Simulation(object sender, RoutedEventArgs routedEventArgs)
         {
-            MessageBox.Show(_holder + "\nFile " + Download.f_name);
             RuleTable rules = _tableController.Populate(16,5);
             Entry current = rules.GetCurrentRule();
             LLasParserVlasov parser = new LLasParserVlasov();
             parser.ReadFile(Download.f_name, "utf-8");
             Slicer slicer = new Slicer(parser.Data);
             Encoder encoder = new Encoder();
-            for (int i = 0; i < 10; i++)
+            string res = "";
+            for (int i = 0; i < 100; i++)
             {
-                MessageBox.Show(encoder.Encode(current, slicer.GetSlice(i)));
+                res += i+": "+encoder.Encode(current, slicer.GetSlice(i))+"   ";
+                if (i % 15 == 0 && i > 0)
+                {
+                    res += "\n";
+                }
             }
-            NavigationService.Navigate(new Result());
+            Result last = new()
+            {
+                Message =
+                {
+                    Text = res
+                }
+            };
+            NavigationService!.Navigate(last);
         }
     }
 }
