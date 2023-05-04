@@ -56,7 +56,7 @@
                       FontSize="14" 
                       IsChecked="False" Checked="Stat_Checked" Unchecked="Stat_Unchecked" 
                       Height="20"
-                      Content="СтатЗамер"/>
+                      Content="Stat"/>
             <CheckBox x:Name="tfgFlag" 
                       DockPanel.Dock="Top"
                       HorizontalAlignment="Left"
@@ -96,7 +96,7 @@
             Grid.Row="2" Grid.Column="2" 
             HorizontalAlignment="Left"
             FontSize="14" 
-            Margin="0,0,0,0">Название</TextBlock>
+            Margin="0,0,0,0">Name</TextBlock>
         <TextBox 
             x:Name="NameText"  
             Grid.Row="2" Grid.Column="2"
@@ -126,7 +126,7 @@
             Grid.Column="2" Grid.Row="2" 
             HorizontalAlignment="Left" 
             FontSize="14" 
-            Margin="0,42,0,0">Center Bind Start</TextBlock>
+            Margin="0,42,0,0">Center Bin Start</TextBlock>
         <TextBox Grid.Column="2" Grid.Row="2"
                  HorizontalAlignment="Left" VerticalAlignment="Top"
                  Background="Pink" LostKeyboardFocus="TextChanged_Center" 

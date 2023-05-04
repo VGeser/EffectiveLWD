@@ -2,6 +2,8 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Commons;
+using Ipgg.LasParser;
 using SimulatorSubsystem;
 
 namespace ExampleApp
@@ -12,18 +14,20 @@ namespace ExampleApp
     public partial class Table
     {
         private readonly TableDataHolder _holder;
+        private readonly TableController _tableController;
 
         public Table()
         {
             InitializeComponent();
             _holder = new TableDataHolder();
+            _tableController = new TableController(_holder);
             FilePrinting();
         }
 
         private void FilePrinting()
         {
             string file = Download.f_name;
-            int slash = file.LastIndexOf("\\");
+            int slash = file.LastIndexOf("\\", StringComparison.Ordinal);
             FileName.Text = file.Substring(slash + 1);
         //     //FileName.Text = "Hello";
         }
@@ -41,34 +45,47 @@ namespace ExampleApp
         {
             return Rotor.IsChecked != null && Rotor.IsChecked.Value;
         }
+        // private void FilePrinting()
+        // {
+        //     string file = Download.f_name;
+        //     int slash = file.LastIndexOf("\\");
+        //     FileName.Text = file.Substring(slash + 1);
+        //     //  FileName.Text = "Hello";
+        // }
 
         private void Rotor_Checked(object sender, RoutedEventArgs e)
         {
+            _holder.RuleMask[0] = true;
             Rotor.IsChecked = true;
         }
 
         private void Rotor_Unchecked(object sender, RoutedEventArgs e)
         {
+            _holder.RuleMask[0] = false;
             Rotor.IsChecked = false;
         }
 
         private void Stat_Checked(object sender, RoutedEventArgs e)
         {
+            _holder.RuleMask[1] = true;
             Stat.IsChecked = true;
         }
 
         private void Stat_Unchecked(object sender, RoutedEventArgs e)
         {
+            _holder.RuleMask[1] = false;
             Stat.IsChecked = false;
         }
 
         private void tfgFlag_Checked(object sender, RoutedEventArgs e)
         {
+            _holder.RuleMask[2] = true;
             tfgFlag.IsChecked = true;
         }
 
         private void tfgFlag_Unchecked(object sender, RoutedEventArgs e)
         {
+            _holder.RuleMask[2] = false;
             tfgFlag.IsChecked = false;
         }
 
@@ -186,14 +203,36 @@ namespace ExampleApp
             }
         }
 
-        //private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
-        //{
-        //    MessageBox.Show(_holder.ToString());
-        //}
+        // private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        // {
 
-        private void Button_Simulation(object sender, RoutedEventArgs e)
+        //     NavigationService.Navigate(new Result());
+        // }
+        private void Button_Simulation(object sender, RoutedEventArgs routedEventArgs)
         {
-            NavigationService.Navigate(new Result());
+            RuleTable rules = _tableController.Populate(16,5);
+            Entry current = rules.GetCurrentRule();
+            LLasParserVlasov parser = new LLasParserVlasov();
+            parser.ReadFile(Download.f_name, "utf-8");
+            Slicer slicer = new Slicer(parser.Data);
+            Encoder encoder = new Encoder();
+            string res = "";
+            for (int i = 0; i < 100; i++)
+            {
+                res += i+": "+encoder.Encode(current, slicer.GetSlice(i))+"   ";
+                if (i % 15 == 0 && i > 0)
+                {
+                    res += "\n";
+                }
+            }
+            Result last = new()
+            {
+                Message =
+                {
+                    Text = res
+                }
+            };
+            NavigationService!.Navigate(last);
         }
     }
 }

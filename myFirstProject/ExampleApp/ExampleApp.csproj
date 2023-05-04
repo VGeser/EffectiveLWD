@@ -8,7 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Commons\Commons.csproj" />
     <ProjectReference Include="..\PMM-Simulator\PMM-Simulator.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Ipgg.LasParser">
+      <HintPath>..\PMM-Simulator\libs\Ipgg.LasParser.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

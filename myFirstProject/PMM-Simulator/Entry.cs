@@ -58,32 +58,26 @@
 
         public class Parameters
         {
-            public String Mark { get; }
-
             //public List<(string,int)> EncodedCurvesWithPrecision { get; }
             public List<EncodedParameter> EncodedParameters { get; set; }
 
-            public Parameters(string mark)
+            public Parameters(List<EncodedParameter> encoded)
             {
-                Mark = mark;
+                EncodedParameters = encoded;
             }
         }
 
         public abstract class EncodedParameter
         {
-            private Tuple<double> _range;
-            private double _step;
             private int _radix;
             private int _symbols;
             private EncodingHistogram _histogram;
             public string Mnemonic;
 
-            protected EncodedParameter(string mnemonic, Tuple<double> range, double step, int radix, int symbols, EncodingHistogram histogram)
+            protected EncodedParameter(string mnemonic, int radix, int symbols, EncodingHistogram histogram)
             {
                 _histogram = histogram;
                 Mnemonic = mnemonic;
-                _range = range;
-                _step = step;
                 _symbols = symbols;
                 _radix = radix;
             }
@@ -96,7 +90,7 @@
             }
         }
 
-        class SimpleEncodedParameter : EncodedParameter
+        public class SimpleEncodedParameter : EncodedParameter
         {
             public override int ToRepresentation(double? value)
             {
@@ -109,17 +103,17 @@
                 throw new  ArgumentNullException();
             }
 
-            public SimpleEncodedParameter(string mnemonic, Tuple<double> range, double step, int radix, int symbols, EncodingHistogram histogram) : 
-                base(mnemonic, range, step, radix, symbols, histogram)
+            public SimpleEncodedParameter(string mnemonic, int radix, int symbols, EncodingHistogram histogram) : 
+                base(mnemonic, radix, symbols, histogram)
             {
                 
             }
         }
 
-        class StepChangingEncodedParameter : EncodedParameter
+        public class StepChangingEncodedParameter : EncodedParameter
         {
-            public StepChangingEncodedParameter(string mnemonic, Tuple<double> range, double step, int radix, int symbols, EncodingHistogram histogram, double requiredStep) : 
-                base(mnemonic, range, step, radix, symbols, histogram)
+            public StepChangingEncodedParameter(string mnemonic, int radix, int symbols, EncodingHistogram histogram, double requiredStep) : 
+                base(mnemonic, radix, symbols, histogram)
             {
                 RequiredStep = requiredStep;
             }

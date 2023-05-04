@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMM-SimulatorTests", "PMM-S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleApp", "ExampleApp\ExampleApp.csproj", "{3B62A437-0F3E-4E2C-B3F6-639C274F3A51}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commons", "Commons\Commons.csproj", "{D4EB4DF5-1684-407A-8859-94ED1A71E8FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{3B62A437-0F3E-4E2C-B3F6-639C274F3A51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B62A437-0F3E-4E2C-B3F6-639C274F3A51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B62A437-0F3E-4E2C-B3F6-639C274F3A51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4EB4DF5-1684-407A-8859-94ED1A71E8FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4EB4DF5-1684-407A-8859-94ED1A71E8FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4EB4DF5-1684-407A-8859-94ED1A71E8FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4EB4DF5-1684-407A-8859-94ED1A71E8FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
