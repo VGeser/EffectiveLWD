@@ -4,11 +4,10 @@ public class Encoder
 {
     public string Encode(Entry entry, Dictionary<String, Double?> slice)
     {
-        string res = "";
+        string res = "{S" + entry.Id;
         foreach (Entry.EncodedParameter encoded in entry.Param.EncodedParameters)
         {
             List<Int32> codeAsInts = encoded.Lookup(encoded.ToRepresentation(slice[encoded.Mnemonic]));
-            res += "{";
             foreach (Int32 symbAsInt in codeAsInts)
             {
                 res += Transcribe(symbAsInt);
