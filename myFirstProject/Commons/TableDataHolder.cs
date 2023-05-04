@@ -1,4 +1,4 @@
-namespace SimulatorSubsystem;
+namespace ExampleApp;
 
 public class TableDataHolder
 {
