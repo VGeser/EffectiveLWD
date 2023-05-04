@@ -13,10 +13,6 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Полученные посылки" FontSize="25" FontWeight="Bold"></TextBlock>
-<<<<<<< HEAD
-        <TextBlock x:Name="Message" HorizontalAlignment="Left" Grid.Row="1" FontSize="20"></TextBlock>
-=======
         <TextBlock x:Name="Message" Grid.Row="1" HorizontalAlignment="Left" FontSize="20"></TextBlock>
->>>>>>> 907f0e9abb8b106f60e7c06a77ae50202b64ef9e
     </Grid>
 </Page>
