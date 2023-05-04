@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>net7.0-windows</TargetFramework>
-        <RootNamespace>MMM_SimulatorTests</RootNamespace>
+        <RootNamespace>SimulatorSubsystemTest</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
 

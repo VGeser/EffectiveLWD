@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace LearningCSharp;
+namespace SimulatorSubsystem;
 
 public class Encoder
 {

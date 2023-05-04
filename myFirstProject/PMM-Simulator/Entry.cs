@@ -1,4 +1,4 @@
-﻿namespace LearningCSharp
+﻿namespace SimulatorSubsystem
 {
     public class Entry
     {
