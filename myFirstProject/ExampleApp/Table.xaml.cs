@@ -17,16 +17,16 @@ namespace ExampleApp
         {
             InitializeComponent();
             _holder = new TableDataHolder();
-            //FilePrinting();
+            FilePrinting();
         }
 
-        // private void FilePrinting()
-        // {
-        //     string file = Download.f_name;
-        //     int slash = file.LastIndexOf("\\");
-        //     FileName.Text = file.Substring(slash + 1);
-        //     //  FileName.Text = "Hello";
-        // }
+        private void FilePrinting()
+        {
+            string file = Download.f_name;
+            int slash = file.LastIndexOf("\\");
+            FileName.Text = file.Substring(slash + 1);
+        //     //FileName.Text = "Hello";
+        }
         public Boolean Rotor_val()
         {
             return Rotor.IsChecked != null && Rotor.IsChecked.Value;
@@ -115,7 +115,7 @@ namespace ExampleApp
             _holder.Name = textBox.Text;
         }
 
-        private void TextChanged_x1(object sender, TextChangedEventArgs e)
+        private void TextChanged_x1(object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
             Int32.TryParse(textBox.Text, out _holder.X1);
@@ -186,9 +186,14 @@ namespace ExampleApp
             }
         }
 
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        //private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        //{
+        //    MessageBox.Show(_holder.ToString());
+        //}
+
+        private void Button_Simulation(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(_holder.ToString());
+            NavigationService.Navigate(new Result());
         }
     }
 }

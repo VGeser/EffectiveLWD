@@ -19,36 +19,139 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <TextBlock HorizontalAlignment="Center" FontSize="25" FontWeight="Bold" Grid.ColumnSpan="3" Grid.Row="0" Margin="0 20 0 0">Редактор правил</TextBlock>
-        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Grid.Row="1" Grid.Column="0">Номер правила</TextBlock>
-        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Grid.Row="1" Grid.Column="1">Условия передачи</TextBlock>
-        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Grid.Row="1" Grid.Column="2">Код параметра</TextBlock>
-        <TextBlock x:Name="FileName" HorizontalAlignment="Center" FontSize="12" FontWeight="Bold" Grid.Row="2" Grid.Column="0"></TextBlock>
+        <TextBlock Grid.ColumnSpan="3" Grid.Row="0" 
+                   HorizontalAlignment="Center"
+                   FontSize="25" FontWeight="Bold"
+                   Margin="0 20 0 0">Редактор правил</TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="0" 
+                   HorizontalAlignment="Left" 
+                   VerticalAlignment="Center" 
+                   FontSize="20" FontWeight="Bold"
+                   Margin="10 0 0 0">Название файла</TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="1" 
+                   HorizontalAlignment="Left" 
+                   VerticalAlignment="Center" 
+                   FontSize="20"
+                   FontWeight="Bold">Условия передачи</TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="2"
+                   HorizontalAlignment="Left" 
+                   VerticalAlignment="Center" 
+                   FontSize="20" FontWeight="Bold">Код параметра</TextBlock>
+        <TextBlock x:Name="FileName" 
+                   Grid.Row="2" Grid.Column="0"
+                   HorizontalAlignment="Left"
+                   FontSize="15" FontWeight="Bold"
+                   Margin="10 0 0 0"></TextBlock>
         <DockPanel Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" LastChildFill="False">
-            <CheckBox x:Name="Rotor" DockPanel.Dock="Top" FontSize="14" HorizontalAlignment="Left" IsChecked="False" Checked="Rotor_Checked" Unchecked="Rotor_Unchecked" Height="20" Content="Rotor"/>
-            <CheckBox x:Name="Stat" DockPanel.Dock="Top" FontSize="14" HorizontalAlignment="Left" IsChecked="False" Checked="Stat_Checked" Unchecked="Stat_Unchecked" Height="20" Content="СтатЗамер"/>
-            <CheckBox x:Name="tfgFlag" DockPanel.Dock="Top" FontSize="14" HorizontalAlignment="Left" IsChecked="False" Checked="tfgFlag_Checked" Unchecked="tfgFlag_Unchecked" Height="20" Content="TfgFlag"/>
+            <CheckBox x:Name="Rotor" 
+                      DockPanel.Dock="Top" 
+                      HorizontalAlignment="Left"
+                      FontSize="14" 
+                      IsChecked="False" Checked="Rotor_Checked" Unchecked="Rotor_Unchecked" 
+                      Height="20" 
+                      Content="Rotor"/>
+            <CheckBox x:Name="Stat"
+                      DockPanel.Dock="Top"
+                      HorizontalAlignment="Left"
+                      FontSize="14" 
+                      IsChecked="False" Checked="Stat_Checked" Unchecked="Stat_Unchecked" 
+                      Height="20"
+                      Content="СтатЗамер"/>
+            <CheckBox x:Name="tfgFlag" 
+                      DockPanel.Dock="Top"
+                      HorizontalAlignment="Left"
+                      FontSize="14" 
+                      IsChecked="False" Checked="tfgFlag_Checked" Unchecked="tfgFlag_Unchecked" 
+                      Height="20" 
+                      Content="TfgFlag"/>
         </DockPanel>
-        <TextBlock Grid.Row="2" Grid.Column="1" FontSize="14" HorizontalAlignment="Left" Margin="0,60,0,0" >Frequency</TextBlock>
-        <TextBox Grid.Row="2" Grid.Column="1" FontSize="14" Background="Pink" VerticalAlignment="Top" HorizontalAlignment="Left" TextChanged="TextChanged_Frequency" Width="50" Height="20" Margin="70,57,0,0">
+        <TextBlock 
+            Grid.Row="2" Grid.Column="1" 
+            HorizontalAlignment="Left"
+            FontSize="14" 
+            Margin="0,60,0,0" >Frequency</TextBlock>
+        <TextBox 
+            Grid.Row="2" Grid.Column="1"
+            VerticalAlignment="Top" HorizontalAlignment="Left"
+            FontSize="14" 
+            Background="Pink" 
+            TextChanged="TextChanged_Frequency" 
+            Width="50" Height="20" 
+            Margin="70,57,0,0">
         </TextBox>
-        <TextBlock Grid.Row="2" Grid.Column="1" FontSize="14" HorizontalAlignment="Left" Margin="0,82,0,0">Initial Passes</TextBlock>
-        <TextBox Grid.Row="2" Grid.Column="1" FontSize="14" Background="Pink" VerticalAlignment="Top" HorizontalAlignment="Left" TextChanged="TextChanged_InitialPasses" Width="50" Height="20" Margin="85,82,0,0"></TextBox>
-        <TextBlock Grid.Row="2" Grid.Column="2" FontSize="14" HorizontalAlignment="Left" Margin="0,0,0,0">Название</TextBlock>
-        <TextBox x:Name="NameText"  Grid.Row="2" Grid.Column="2" Background="Pink" VerticalAlignment="Top" HorizontalAlignment="Left" TextChanged="TextChanged_Name" Width="100" Height="15" Margin="70,0,0,0"></TextBox>
+        <TextBlock 
+            Grid.Row="2" Grid.Column="1" 
+            HorizontalAlignment="Left"
+            FontSize="14"
+            Margin="0,82,0,0">Initial Passes</TextBlock>
+        <TextBox 
+            Grid.Row="2" Grid.Column="1" 
+            VerticalAlignment="Top" HorizontalAlignment="Left"
+            FontSize="14" 
+            Background="Pink"
+            TextChanged="TextChanged_InitialPasses" 
+            Width="50" Height="20" 
+            Margin="85,82,0,0"></TextBox>
+        <TextBlock 
+            Grid.Row="2" Grid.Column="2" 
+            HorizontalAlignment="Left"
+            FontSize="14" 
+            Margin="0,0,0,0">Название</TextBlock>
+        <TextBox 
+            x:Name="NameText"  
+            Grid.Row="2" Grid.Column="2"
+            VerticalAlignment="Top" HorizontalAlignment="Left"
+            Background="Pink" 
+            TextChanged="TextChanged_Name"
+            Width="100" Height="15" 
+            Margin="70,0,0,0"></TextBox>
         <DockPanel Grid.Row="2" Grid.Column="2"  LastChildFill="False">
             <TextBlock DockPanel.Dock="Left" FontSize="14" Margin="0 21 0 0">Range from</TextBlock>
-            <TextBox DockPanel.Dock="Left" TextChanged="TextChanged_x1" Background="Pink" Width="50" MaxHeight="20" VerticalAlignment="Top" Margin="10 21 10 0"></TextBox>
+            <TextBox 
+                DockPanel.Dock="Left"
+                VerticalAlignment="Top"
+                LostKeyboardFocus="TextChanged_x1" 
+                Background="Pink" 
+                Width="50" MaxHeight="20" 
+                Margin="10 21 10 0"></TextBox>
             <TextBlock DockPanel.Dock="Left" FontSize="14" Margin="0 21 0 0">to</TextBlock>
-            <TextBox DockPanel.Dock="Left" LostKeyboardFocus="TextChanged_x2" Background="Pink" Width="50" MaxHeight="20" VerticalAlignment="Top" Margin="10 21 0 0"></TextBox>
+            <TextBox DockPanel.Dock="Left" 
+                     VerticalAlignment="Top"
+                     LostKeyboardFocus="TextChanged_x2" 
+                     Background="Pink"
+                     Width="50" MaxHeight="20" 
+                     Margin="10 21 0 0"></TextBox>
         </DockPanel>
-        <TextBlock Grid.Column="2" Grid.Row="2" HorizontalAlignment="Left" FontSize="14" Margin="0,42,0,0">Center Bind Start</TextBlock>
-        <TextBox Background="Pink" Grid.Column="2" Grid.Row="2" LostKeyboardFocus="TextChanged_Center" HorizontalAlignment="Left" Margin="115,42,0,0"  Width="50" MaxHeight="20" VerticalAlignment="Top"></TextBox>
+        <TextBlock 
+            Grid.Column="2" Grid.Row="2" 
+            HorizontalAlignment="Left" 
+            FontSize="14" 
+            Margin="0,42,0,0">Center Bind Start</TextBlock>
+        <TextBox Grid.Column="2" Grid.Row="2"
+                 HorizontalAlignment="Left" VerticalAlignment="Top"
+                 Background="Pink" LostKeyboardFocus="TextChanged_Center" 
+                 Width="50" MaxHeight="20"
+                 Margin="115,42,0,0"></TextBox>
         <TextBlock Grid.Column="2" Grid.Row="2" HorizontalAlignment="Left" FontSize="14" Margin="0,63,0,0">Step</TextBlock>
-        <TextBox Background="Pink" Grid.Column="2" Grid.Row="2" LostKeyboardFocus="TextChanged_Step" HorizontalAlignment="Left" Margin="35,63,0,0"  Width="50" MaxHeight="20" VerticalAlignment="Top"></TextBox>
+        <TextBox  Grid.Column="2" Grid.Row="2"
+                  HorizontalAlignment="Left" VerticalAlignment="Top"
+                  Background="Pink" 
+                  LostKeyboardFocus="TextChanged_Step"
+                  Width="50" MaxHeight="20"
+                  Margin="35,63,0,0"></TextBox>
         <TextBlock Grid.Column="2" Grid.Row="2" HorizontalAlignment="Left" FontSize="14" Margin="0,84,0,0">Symbols</TextBlock>
-        <TextBox Background="Pink" Grid.Column="2" Grid.Row="2" LostKeyboardFocus="TextChanged_Symbols" HorizontalAlignment="Left" Margin="60,84,0,0"  Width="50" MaxHeight="20" VerticalAlignment="Top"></TextBox>
-        <Button Grid.Column="2" Grid.Row="3" Height="50" Width="100" Content="+"></Button>
-        <Button Grid.Column="0" Grid.Row="2" Click="ButtonBase_OnClick" Height="50" Width="100" Content="+"></Button>
+        <TextBox Grid.Column="2" Grid.Row="2" 
+                 HorizontalAlignment="Left" VerticalAlignment="Top"
+                 Background="Pink" 
+                 LostKeyboardFocus="TextChanged_Symbols"
+                 Width="50" MaxHeight="20"
+                 Margin="60,84,0,0"></TextBox>
+        <!--<Button Grid.Column="0" Grid.Row="2" Click="ButtonBase_OnClick" Height="50" Width="100" Content="+"></Button>-->
+        <Button Grid.Column="2" Grid.Row="3"
+                Background="White"
+                FontSize="15" FontWeight="Bold" 
+                Content="Симуляция" 
+                Height="50" Width="100" 
+                Click="Button_Simulation"></Button>
     </Grid>
 </Page>
