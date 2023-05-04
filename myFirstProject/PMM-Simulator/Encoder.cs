@@ -1,42 +1,41 @@
-using System.Globalization;
-
 namespace SimulatorSubsystem;
 
 public class Encoder
 {
-    public string Encode(Entry.Parameters parameters, Dictionary<String, Double?> slice)
+    public string Encode(Entry entry, Dictionary<String, Double?> slice)
     {
-        string message = parameters.Mark;
-        foreach (var param in parameters.EncodedParameters)
+        string res = "";
+        foreach (Entry.EncodedParameter encoded in entry.Param.EncodedParameters)
         {
-            double? value = slice[param.Mnemonic];
-            if (value != null)
+            List<Int32> codeAsInts = encoded.Lookup(encoded.ToRepresentation(slice[encoded.Mnemonic]));
+            res += "{";
+            foreach (Int32 symbAsInt in codeAsInts)
             {
-                int intVal = param.ToRepresentation(value);
-                string hexPart = intVal.ToString(CultureInfo.CurrentCulture);
-                hexPart = DeletePunctuationAndTrailing(hexPart);
-                if (hexPart.Length < intVal)
-                {
-                    hexPart=hexPart.PadRight(intVal, '0');
-                }
-                hexPart = hexPart.Substring(0, intVal);
-                message += hexPart;
-            }
-            else
-            {
-                return "";
+                res += Transcribe(symbAsInt);
             }
         }
 
-        return message;
+        res += "}";
+        
+        return res;
     }
 
-    private String DeletePunctuationAndTrailing(string s)
+    private String Transcribe(Int32 num)
     {
-        string res = s;
-        res=res.Replace(",", "");
-        res=res.Replace("-", "");
-        res.TrimStart('0');
-        return res;
+        if (num is >= 0 and <= 9)
+        {
+            return num.ToString();
+        }
+
+        switch (num)
+        {
+            case 10: return "a";
+            case 11: return "b";
+            case 12: return "c";
+            case 13: return "d";
+            case 14: return "e";
+            case 15: return "f";
+            default: return "Ъ";
+        }
     }
 }

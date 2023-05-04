@@ -1,17 +1,17 @@
 ﻿namespace SimulatorSubsystem;
 
-public class Table
+public class RuleTable
 {
     private readonly List<Entry> _table;
     //Default int value is 0
     private int _currentRule;
     private int _currentRound = 1;
-    public Table()
+    public RuleTable()
     {
         _table = new List<Entry>();
     }
     
-    public Table(List<Entry> tableInit)
+    public RuleTable(List<Entry> tableInit)
     {
         _table = tableInit;
     }

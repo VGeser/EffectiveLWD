@@ -1,7 +1,8 @@
-namespace ExampleApp;
+namespace Commons;
 
 public class TableDataHolder
 {
+    public bool[] RuleMask = new bool[3];
     public int Frequency;
     public int InitialPasses;
     public int Symbols;
