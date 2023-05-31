@@ -58,4 +58,9 @@ public class RuleTable
     {
         return _table[_currentRule];
     }
+
+    public Entry GetRuleByIndex(int index)
+    {
+        return _table[index];
+    }
 }

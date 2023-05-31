@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -216,10 +217,18 @@ namespace ExampleApp
             parser.ReadFile(Download.f_name, "utf-8");
             Slicer slicer = new Slicer(parser.Data);
             Encoder encoder = new Encoder();
+            Decoder decoder = new Decoder(rules);
             string res = "";
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 30; i++)
             {
-                res += i+": "+encoder.Encode(current, slicer.GetSlice(i))+"   ";
+                String message = encoder.Encode(current, slicer.GetSlice(i));
+                res += i+": "+message+"|";
+                Dictionary<String, Double> decodeResults = decoder.Decode(message);
+                foreach (string mnemonic in decodeResults.Keys)
+                {
+                    res += mnemonic + "=" + decodeResults[mnemonic];
+                }
+                res +=  "    ";
                 if (i % 15 == 0 && i > 0)
                 {
                     res += "\n";

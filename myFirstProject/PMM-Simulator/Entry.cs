@@ -69,24 +69,30 @@
 
         public abstract class EncodedParameter
         {
-            private int _radix;
-            private int _symbols;
-            private EncodingHistogram _histogram;
-            public string Mnemonic;
+            protected readonly int _radix;
+            public int Symbols { get; }
+            protected readonly EncodingHistogram _histogram;
+            public readonly string Mnemonic;
 
             protected EncodedParameter(string mnemonic, int radix, int symbols, EncodingHistogram histogram)
             {
                 _histogram = histogram;
                 Mnemonic = mnemonic;
-                _symbols = symbols;
+                Symbols = symbols;
                 _radix = radix;
             }
 
             public abstract int ToRepresentation(double? value);
 
+            //TODO decoding for every subtype!
+            public virtual double Decode(String message)
+            {
+                return 0;
+            }
+
             public List<Int32> Lookup(Int32 repres)
             {
-                return _histogram.Lookup(repres, _radix, _symbols);
+                return _histogram.Lookup(repres, _radix, Symbols);
             }
         }
 
@@ -101,6 +107,36 @@
                     // есть еще Floor, который округлит 3.9 -> 3
                 }
                 throw new  ArgumentNullException();
+            }
+
+            public override double Decode(String message)
+            {
+                List<int> encoded = new List<int>();
+                int sum = 0;
+                for (int i = 0; i < message.Length; i++)
+                {
+                    int num = int.Parse(message.Substring(i, 1));
+                    sum += num;
+                    encoded.Add(num);
+                }
+
+                int index = -1;
+                List<List<int>> possible = Util.GetEncodings(new List<int>(), Symbols, sum, _radix);
+                foreach (var VARIABLE in possible)
+                {
+                    int equal = 0;
+                    for (int i = 0; i < Symbols; i++)
+                    {
+                        if (encoded[i] == VARIABLE[i]) equal++;
+                    }
+
+                    if (equal == Symbols)
+                    {
+                        index = possible.IndexOf(VARIABLE);
+                        break;
+                    }
+                }
+                return (double)_histogram.getRepresByIndex(sum, index);
             }
 
             public SimpleEncodedParameter(string mnemonic, int radix, int symbols, EncodingHistogram histogram) : 

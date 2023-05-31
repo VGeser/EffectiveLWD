@@ -2,9 +2,9 @@ namespace SimulatorSubsystem;
 
 public class EncodingHistogram
 {
-    private Dictionary<Int32, List<SetPosition>> _histogram;
-    private Int32 _binSize;
-    private Int32 _step;
+    private readonly Dictionary<Int32, List<SetPosition>> _histogram;
+    private readonly Int32 _binSize;
+    private readonly Int32 _step;
     
     public EncodingHistogram(Int32 binSize, Int32 step, Dictionary<Int32, List<SetPosition>> histogram)
     {
@@ -49,5 +49,27 @@ public class EncodingHistogram
     public Dictionary<Int32, List<SetPosition>> getHistogram()
     {
         return _histogram;
+    }
+
+    public int getRepresByIndex(int sum, int index)
+    {
+        foreach (var key in _histogram.Keys)
+        {
+            List<SetPosition> value = _histogram[key];
+            int passed = 0;
+            foreach (var toCheck in value)
+            {
+                if (toCheck.Sum == sum && toCheck.IndexFrom + toCheck.Count > index)
+                {
+                    return key + passed + index - toCheck.IndexFrom;
+                }
+                else
+                {
+                    passed += toCheck.Count;
+                }
+            }
+        }
+        
+        return Int32.MinValue;
     }
 }
