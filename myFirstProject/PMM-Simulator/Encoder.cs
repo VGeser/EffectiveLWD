@@ -4,7 +4,8 @@ public class Encoder
 {
     public string Encode(Entry entry, Dictionary<String, Double?> slice)
     {
-        string res = "{S" + entry.Id;
+        //TODO customizable markers??
+        string res = "S" + entry.Id;
         foreach (Entry.EncodedParameter encoded in entry.Param.EncodedParameters)
         {
             List<Int32> codeAsInts = encoded.Lookup(encoded.ToRepresentation(slice[encoded.Mnemonic]));
@@ -14,8 +15,6 @@ public class Encoder
             }
         }
 
-        res += "}";
-        
         return res;
     }
 
@@ -34,7 +33,7 @@ public class Encoder
             case 13: return "d";
             case 14: return "e";
             case 15: return "f";
-            default: return "Ъ";
+            default: return "g";
         }
     }
 }
