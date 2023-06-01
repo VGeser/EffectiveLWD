@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Documents;
 using System.Windows.Input;
 using ExampleApp.Commands;
 using ExampleApp.Model;
@@ -15,6 +17,7 @@ namespace ExampleApp.ViewModels
         public ObservableCollection<ProtocolRule> Rules { get; set; }
 
         private ProtocolRule _SelectedRule;
+        private Dictionary<String, List<DataPoint>> _plots;
 
 
         public ProtocolRule SelectedRule
@@ -95,6 +98,22 @@ namespace ExampleApp.ViewModels
             protocol.ProtocolRules = Rules;
             Simulator simulator = new Simulator(protocol);
             DecodedMessageData decodedMessageData = simulator.Simulate(16, 5, Download.f_name, new TimeData(1000, 200, 500));
+            _plots = new Dictionary<string, List<DataPoint>>();
+
+
+            List<int> times = decodedMessageData.GetTimes();
+            List<Dictionary<String, Double>> messages = decodedMessageData.GetMessages();
+
+            for(int i = 0; i < decodedMessageData.GetSize(); i++)
+            {
+                int time = times[i];
+                Dictionary<String, double> values = messages[i];
+
+                foreach (var VARIABLE in values.Keys)
+                {
+                    _plots[VARIABLE].Add(new DataPoint(values[VARIABLE],time));
+                }
+            }
         }
         
         public MainWindowViewModel()

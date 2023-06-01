@@ -26,4 +26,9 @@ public class DecodedMessageData
     {
         return _timesOfFinish;
     }
+
+    public int GetSize()
+    {
+        return _messages.Capacity;
+    }
 }
