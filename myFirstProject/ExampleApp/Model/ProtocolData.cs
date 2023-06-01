@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ExampleApp.Model
 {
-    internal class ProtocolData
+    public class ProtocolData
     {
         public ObservableCollection<ProtocolRule> ProtocolRules { get; set; } = new ObservableCollection<ProtocolRule>();
     }

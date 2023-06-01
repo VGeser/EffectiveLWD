@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExampleApp.Model
 {
-    internal class ProtocolSelectCondition
+    public  class ProtocolSelectCondition
     {
         public bool isRotor { get; set; }
         public bool isStat { get; set; }

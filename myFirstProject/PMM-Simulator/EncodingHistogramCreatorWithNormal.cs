@@ -3,7 +3,7 @@ namespace SimulatorSubsystem;
 //TODO step that is bigger than one
 public class EncodingHistogramCreatorWithNormal
 {
-    public EncodingHistogram Create(Int32 binSize, Int32 step, Int32 rangeLowerRaw, Int32 rangeUpperRaw,
+    public static EncodingHistogram Create(Int32 binSize, Int32 step, Int32 rangeLowerRaw, Int32 rangeUpperRaw,
         Int32 centerBinStart,
         Int32 radix, Int32 symbols)
     {

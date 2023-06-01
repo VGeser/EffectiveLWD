@@ -19,4 +19,9 @@ public class Slicer
 
         return res;
     }
+
+    public int GetSize()
+    {
+        return _curves.Values.GetEnumerator().Current.GetLength(0);
+    }
 }

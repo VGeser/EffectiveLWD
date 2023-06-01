@@ -15,13 +15,13 @@ namespace ExampleApp
     public partial class Table
     {
         private readonly TableDataHolder _holder;
-        private readonly TableController _tableController;
+        private readonly OldTableController _tableController;
 
         public Table()
         {
             InitializeComponent();
             _holder = new TableDataHolder();
-            _tableController = new TableController(_holder);
+            _tableController = new OldTableController(_holder);
             FilePrinting();
         }
 

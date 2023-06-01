@@ -136,7 +136,7 @@
                         break;
                     }
                 }
-                return (double)_histogram.getRepresByIndex(sum, index);
+                return (double)_histogram.GetRepresByIndex(sum, index);
             }
 
             public SimpleEncodedParameter(string mnemonic, int radix, int symbols, EncodingHistogram histogram) : 

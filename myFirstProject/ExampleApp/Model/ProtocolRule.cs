@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExampleApp.Model
 {
-    internal class ProtocolRule
+    public class ProtocolRule
     {
         public IList<ProtocolSelectCondition> SelectCondition { get; set; } = new List<ProtocolSelectCondition>();
         public IList<ProtocolParameter> Parameters { get; set; } = new List<ProtocolParameter>();

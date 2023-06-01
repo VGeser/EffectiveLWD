@@ -46,12 +46,12 @@ public class EncodingHistogram
         return new List<Int32>();
     }
 
-    public Dictionary<Int32, List<SetPosition>> getHistogram()
+    public Dictionary<Int32, List<SetPosition>> GetHistogram()
     {
         return _histogram;
     }
 
-    public int getRepresByIndex(int sum, int index)
+    public int GetRepresByIndex(int sum, int index)
     {
         foreach (var key in _histogram.Keys)
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExampleApp.Model
 {
-    internal class ProtocolParameter
+    public class ProtocolParameter
     {
         public string Name { get; set; }
 
