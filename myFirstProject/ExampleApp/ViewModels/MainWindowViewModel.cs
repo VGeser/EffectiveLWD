@@ -1,16 +1,15 @@
-﻿using ExampleApp.Commands;
-using ExampleApp.Model;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
+using ExampleApp.Commands;
+using ExampleApp.Model;
+using ExampleApp.ViewModels.Base;
+using SimulatorSubsystem;
 
 namespace ExampleApp.ViewModels
 {
-    internal class MainWindowViewModel : Base.ViewModel
+    internal class MainWindowViewModel : ViewModel
     {
 
         public ObservableCollection<ProtocolRule> Rules { get; set; }
@@ -84,33 +83,47 @@ namespace ExampleApp.ViewModels
 
             Rules.Remove(rule);
         }
+        
+        
+        public ICommand StartSimulationCommand { get; }
+        
+        private bool CanStartSimulationCommandExecuted(object p) => true;
 
+        private void OnStartSimulationCommandExecuted(object p)
+        {
+            ProtocolData protocol = new ProtocolData();
+            protocol.ProtocolRules = Rules;
+            Simulator simulator = new Simulator(protocol);
+            DecodedMessageData decodedMessageData = simulator.Simulate(16, 5, Download.f_name, new TimeData(1000, 200, 500));
+        }
+        
         public MainWindowViewModel()
         {
             CreateRuleCommand = new LambdaCommand(OnCreateRuleCommandExecuted, CanCreateRuleCommandExecute);
             DeleteRuleCommand = new LambdaCommand(OnDeleteRuleCommandExecuted, CanDeleteRuleCommandExecuted);
+            StartSimulationCommand = new LambdaCommand(OnStartSimulationCommandExecuted, CanStartSimulationCommandExecuted);
 
 
             var conditions = Enumerable.Range(1, 1).Select(i => new ProtocolSelectCondition
             {
-                isRotor = false,
+                isRotor = true,
                 isStat = true,
-                isTfgFlag = false,
-                Frequency = 10,
-                InitialPasses = 5,
+                isTfgFlag = true,
+                Frequency = 1,
+                InitialPasses = 0,
             });
 
             var parameters = Enumerable.Range(1, 1).Select(i => new ProtocolParameter
             {
-                Name = "Name",
-                RangeFrom = 1,
-                RangeTo = 10,
-                CenterBinStart = 5,
+                Name = "PRES",
+                RangeFrom = 0,
+                RangeTo = 100,
+                CenterBinStart = 70,
                 Step = 1,
-                Symbols = "a"
+                Symbols = "4"
             });
 
-            var rules = Enumerable.Range(1, 5).Select(i => new ProtocolRule
+            var rules = Enumerable.Range(1, 1).Select(i => new ProtocolRule
             {
                 Name = $"Правило {i}",
                 SelectCondition = new List<ProtocolSelectCondition>(conditions),
@@ -120,7 +133,6 @@ namespace ExampleApp.ViewModels
 
             Rules = new ObservableCollection<ProtocolRule>(rules);
         }
-
     }
 }
 

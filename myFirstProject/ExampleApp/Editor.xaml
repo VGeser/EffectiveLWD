@@ -24,6 +24,7 @@
                             <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0,3">
                                 <Button Content="Добавить" Margin="0,0,3,0" Command="{Binding CreateRuleCommand}"/>
                                 <Button Content="Удалить" Command="{Binding DeleteRuleCommand}" CommandParameter="{Binding SelectedRule}"/>
+                                <Button Content="Simulation moment" Command="{Binding StartSimulationCommand}"/>
                             </UniformGrid>
                             <ListBox ItemsSource="{Binding Rules}" 
                                  DisplayMemberPath="Name"

@@ -19,7 +19,6 @@ public class Simulator
         int id = 0;
         foreach (ProtocolRule rule in _protocol.ProtocolRules)
         {
-            id++;
             Entry.ChoiceCondition condition = new Entry.ChoiceCondition(rule.SelectCondition[0].isRotor, 
                 rule.SelectCondition[0].isStat, rule.SelectCondition[0].isTfgFlag);
             Entry.ChoiceBoundaries boundaries = new Entry.ChoiceBoundaries(rule.SelectCondition[0].Frequency,
@@ -32,6 +31,7 @@ public class Simulator
                 encodedParameters.Add(new Entry.SimpleEncodedParameter(parameter.Name, radix, int.Parse(parameter.Symbols), histogram));
             }
             table.AddRule(new Entry(condition, boundaries, new Entry.Parameters(encodedParameters), id));
+            id++;
         }
 
         TableController tableController = new TableController(filename, table);

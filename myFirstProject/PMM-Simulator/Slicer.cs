@@ -22,6 +22,9 @@ public class Slicer
 
     public int GetSize()
     {
-        return _curves.Values.GetEnumerator().Current.GetLength(0);
+        var enumerator = _curves.Values.GetEnumerator();
+        enumerator.MoveNext();
+        var current = enumerator.Current;
+        return current.GetLength(0);
     }
 }
