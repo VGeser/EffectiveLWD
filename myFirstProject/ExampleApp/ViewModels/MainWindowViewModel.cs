@@ -12,15 +12,30 @@ namespace ExampleApp.ViewModels
 {
     internal class MainWindowViewModel : Base.ViewModel
     {
-        public ObservableCollection<Rule> Rules { get; }
 
-        private Rule _SelectedRule;
+        public ObservableCollection<ProtocolRule> Rules { get; set; }
 
-        public Rule SelectedRule
+        private ProtocolRule _SelectedRule;
+
+
+        public ProtocolRule SelectedRule
         {
             get => _SelectedRule;
             set => Set(ref _SelectedRule, value);
         }
+
+        /* #region Заголовок окна
+
+         private string _Title = "Редактирование протокола передачи";
+
+         /// <summary> Заголовок окна </summary>
+         public string Title
+         {
+             get => _Title;
+             set => Set(ref _Title, value);
+         }
+         #endregion
+ */
         public ICommand CreateRuleCommand { get; }
 
         private bool CanCreateRuleCommandExecute(object p) => true;
@@ -28,18 +43,31 @@ namespace ExampleApp.ViewModels
         private void OnCreateRuleCommandExecuted(object p)
         {
             var rule_max_index = Rules.Count + 1;
-            var parameters = Enumerable.Range(1, 1).Select(i => new Parameter
+            var conditions = Enumerable.Range(1, 1).Select(i => new ProtocolSelectCondition
             {
                 isRotor = false,
                 isStat = true,
                 isTfgFlag = false,
                 Frequency = 10,
-                InitialPasses = 5
+                InitialPasses = 5,
             });
-            var new_rule = new Rule()
+
+            var parameters = Enumerable.Range(1, 1).Select(i => new ProtocolParameter
+            {
+                Name = "Name",
+                RangeFrom = 1,
+                RangeTo = 10,
+                CenterBinStart = 5,
+                Step = 1,
+                Symbols = "a"
+            });
+
+            var new_rule = new ProtocolRule()
             {
                 Name = $"Правило {rule_max_index}",
-                Parameters = new ObservableCollection<Parameter>(parameters)
+                SelectCondition = new List<ProtocolSelectCondition>(conditions),
+
+                Parameters = new List<ProtocolParameter> (parameters)
             };
 
             Rules.Add(new_rule);
@@ -48,11 +76,11 @@ namespace ExampleApp.ViewModels
 
         public ICommand DeleteRuleCommand { get; }
 
-        private bool CanDeleteRuleCommandExecuted(object p) => p is Rule rule && Rules.Contains(rule);
+        private bool CanDeleteRuleCommandExecuted(object p) => p is ProtocolRule rule && Rules.Contains(rule);
 
         private void OnDeleteRuleCommandExecuted(object p)
         {
-            if (!(p is Rule rule)) return;
+            if (!(p is ProtocolRule rule)) return;
 
             Rules.Remove(rule);
         }
@@ -62,23 +90,37 @@ namespace ExampleApp.ViewModels
             CreateRuleCommand = new LambdaCommand(OnCreateRuleCommandExecuted, CanCreateRuleCommandExecute);
             DeleteRuleCommand = new LambdaCommand(OnDeleteRuleCommandExecuted, CanDeleteRuleCommandExecuted);
 
-            //var parameters_index = 1;
-            var parameters = Enumerable.Range(1, 1).Select(i => new Parameter
+
+            var conditions = Enumerable.Range(1, 1).Select(i => new ProtocolSelectCondition
             {
                 isRotor = false,
                 isStat = true,
                 isTfgFlag = false,
                 Frequency = 10,
-                InitialPasses = 5
+                InitialPasses = 5,
             });
-            var rules = Enumerable.Range(1, 5).Select(i => new Rule
+
+            var parameters = Enumerable.Range(1, 1).Select(i => new ProtocolParameter
+            {
+                Name = "Name",
+                RangeFrom = 1,
+                RangeTo = 10,
+                CenterBinStart = 5,
+                Step = 1,
+                Symbols = "a"
+            });
+
+            var rules = Enumerable.Range(1, 5).Select(i => new ProtocolRule
             {
                 Name = $"Правило {i}",
-                Parameters = new ObservableCollection<Parameter>(parameters)
+                SelectCondition = new List<ProtocolSelectCondition>(conditions),
+
+                Parameters = new List<ProtocolParameter> (parameters)
             });
-            Rules = new ObservableCollection<Rule>(rules);
+
+            Rules = new ObservableCollection<ProtocolRule>(rules);
         }
 
     }
 }
-   
+
