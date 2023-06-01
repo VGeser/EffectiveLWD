@@ -7,6 +7,7 @@ using System.Windows.Input;
 using ExampleApp.Commands;
 using ExampleApp.Model;
 using ExampleApp.ViewModels.Base;
+using Ipgg.LasParser;
 using SimulatorSubsystem;
 
 namespace ExampleApp.ViewModels
@@ -94,11 +95,19 @@ namespace ExampleApp.ViewModels
 
         private void OnStartSimulationCommandExecuted(object p)
         {
+            LLasParserVlasov parserVlasov = new LLasParserVlasov();
+            parserVlasov.ReadFile(Download.f_name, "utf-8");
+            Slicer slicer = new Slicer(parserVlasov.Data);
             ProtocolData protocol = new ProtocolData();
             protocol.ProtocolRules = Rules;
             Simulator simulator = new Simulator(protocol);
             DecodedMessageData decodedMessageData = simulator.Simulate(16, 5, Download.f_name, new TimeData(1000, 200, 500));
             _plots = new Dictionary<string, List<DataPoint>>();
+
+            foreach (string s in slicer.GetSlice(0).Keys)
+            {
+                _plots.Add(s, new List<DataPoint>());
+            }
 
 
             List<int> times = decodedMessageData.GetTimes();
