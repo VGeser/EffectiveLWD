@@ -7,9 +7,12 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Download">
-    <Grid Background="Pink">
+    <Grid>
+        <DockPanel Height="50" Width="200">
+            <Button DockPanel.Dock="Top" Name="btnOpenFile" Click="HandleClick" Height="50" Width="100"  Background="AliceBlue" Content="Открыть файл" Command="{Binding OpenFileCommand}"/>
+        </DockPanel>
         <!--<WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Top" VerticalAlignment="Center" Background="Pink">-->
-            <Button Name="btnOpenFile" Click="HandleClick" Height="50" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" Background="White">Open file</Button>
+        <!--  <Button Name="btnOpenFile" Click="HandleClick" Height="50" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" Background="White">Open file</Button>-->
         <!--</WrapPanel>-->
     </Grid>
 </Page>

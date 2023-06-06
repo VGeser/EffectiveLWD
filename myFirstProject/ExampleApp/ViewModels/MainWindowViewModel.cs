@@ -2,29 +2,38 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Documents;
 using System.Windows.Input;
 using ExampleApp.Commands;
 using ExampleApp.Model;
 using ExampleApp.ViewModels.Base;
 using Ipgg.LasParser;
+using LiveChartsCore;
+using LiveChartsCore.Defaults;
+using LiveChartsCore.SkiaSharpView;
 using SimulatorSubsystem;
 
 namespace ExampleApp.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
-
+        
         public ObservableCollection<ProtocolRule> Rules { get; set; }
+        public ObservableCollection<PlotWithName> Charts { get; set; }
 
-        private ProtocolRule _SelectedRule;
-        private Dictionary<String, List<DataPoint>> _plots;
+        private ProtocolRule _selectedRule;
 
+        private PlotWithName _series;
 
         public ProtocolRule SelectedRule
         {
-            get => _SelectedRule;
-            set => Set(ref _SelectedRule, value);
+            get => _selectedRule;
+            set => Set(ref _selectedRule, value);
+        }
+        
+        public PlotWithName Series
+        {
+            get => _series;
+            set => Set(ref _series, value);
         }
 
         /* #region Заголовок окна
@@ -45,7 +54,7 @@ namespace ExampleApp.ViewModels
 
         private void OnCreateRuleCommandExecuted(object p)
         {
-            var rule_max_index = Rules.Count + 1;
+            var ruleMaxIndex = Rules.Count + 1;
             var conditions = Enumerable.Range(1, 1).Select(i => new ProtocolSelectCondition
             {
                 isRotor = false,
@@ -65,15 +74,15 @@ namespace ExampleApp.ViewModels
                 Symbols = "a"
             });
 
-            var new_rule = new ProtocolRule()
+            var newRule = new ProtocolRule()
             {
-                Name = $"Правило {rule_max_index}",
+                Name = $"Правило {ruleMaxIndex}",
                 SelectCondition = new List<ProtocolSelectCondition>(conditions),
 
                 Parameters = new List<ProtocolParameter> (parameters)
             };
 
-            Rules.Add(new_rule);
+            Rules.Add(newRule);
         }
 
 
@@ -95,6 +104,8 @@ namespace ExampleApp.ViewModels
 
         private void OnStartSimulationCommandExecuted(object p)
         {
+            Charts.Clear();
+            
             LLasParserVlasov parserVlasov = new LLasParserVlasov();
             parserVlasov.ReadFile(Download.f_name, "utf-8");
             Slicer slicer = new Slicer(parserVlasov.Data);
@@ -102,13 +113,24 @@ namespace ExampleApp.ViewModels
             protocol.ProtocolRules = Rules;
             Simulator simulator = new Simulator(protocol);
             DecodedMessageData decodedMessageData = simulator.Simulate(16, 5, Download.f_name, new TimeData(1000, 200, 500));
-            _plots = new Dictionary<string, List<DataPoint>>();
+            Dictionary<string, List<ObservablePoint>> messagePlots = new Dictionary<string, List<ObservablePoint>>();
+            Dictionary<string, List<ObservablePoint>> filePlots
+                = new Dictionary<string, List<ObservablePoint>>();
 
             foreach (string s in slicer.GetSlice(0).Keys)
             {
-                _plots.Add(s, new List<DataPoint>());
+                messagePlots.Add(s, new List<ObservablePoint>());
+                filePlots.Add(s, new List<ObservablePoint>());
             }
 
+            for (int i = 0; i < slicer.GetSize(); i++)
+            {
+                Dictionary<String, Double?> slice = slicer.GetSlice(i);
+                foreach (var variable in slice.Keys)
+                {
+                    filePlots[variable].Add(new ObservablePoint(i * 4000, slice[variable]));
+                }
+            }
 
             List<int> times = decodedMessageData.GetTimes();
             List<Dictionary<String, Double>> messages = decodedMessageData.GetMessages();
@@ -118,11 +140,38 @@ namespace ExampleApp.ViewModels
                 int time = times[i];
                 Dictionary<String, double> values = messages[i];
 
-                foreach (var VARIABLE in values.Keys)
+                foreach (var variable in values.Keys)
                 {
-                    _plots[VARIABLE].Add(new DataPoint(values[VARIABLE],time));
+                    messagePlots[variable].Add(new ObservablePoint(time, values[variable]));
                 }
             }
+
+            foreach (string s in messagePlots.Keys)
+            {
+                Charts.Add(new PlotWithName
+                {
+                    Name = s,
+                    Plot = new List<ISeries>
+                    {
+                        new LineSeries<ObservablePoint>
+                        {
+                            Values = messagePlots[s],
+                            LineSmoothness = 0,
+                            GeometryFill = null,
+                            GeometryStroke = null
+                        },
+                        new LineSeries<ObservablePoint>
+                        {
+                            Values = filePlots[s],
+                            LineSmoothness = 0,
+                            GeometryFill = null,
+                            GeometryStroke = null
+                        }
+                    }
+                });
+            }
+
+            Series = Charts[0];
         }
         
         public MainWindowViewModel()
@@ -160,6 +209,9 @@ namespace ExampleApp.ViewModels
             });
 
             Rules = new ObservableCollection<ProtocolRule>(rules);
+
+            var plots = new List<PlotWithName>();
+            Charts = new ObservableCollection<PlotWithName>(plots);
         }
     }
 }

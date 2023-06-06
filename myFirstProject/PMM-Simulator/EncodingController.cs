@@ -23,9 +23,9 @@ public class EncodingController
             int currentSlice = _currentTime / 4000;
             message = _tableController.CreateMessageFromSlice(currentSlice, _conditionSupplier);
             int elapsed = _timeCalculator.CalculateTime(message ?? "");
-            _currentTime += elapsed;
             if(message != null)
                 data.AddMessage(message,_currentTime);
+            _currentTime += elapsed;
         }
 
         return data;
