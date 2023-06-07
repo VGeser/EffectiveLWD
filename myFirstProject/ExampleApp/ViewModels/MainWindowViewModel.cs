@@ -24,6 +24,8 @@ namespace ExampleApp.ViewModels
 
         private PlotWithName _series;
 
+        public SimulationStatistics Statistics = new();
+
         public ProtocolRule SelectedRule
         {
             get => _selectedRule;
@@ -35,7 +37,6 @@ namespace ExampleApp.ViewModels
             get => _series;
             set => Set(ref _series, value);
         }
-
         /* #region Заголовок окна
 
          private string _Title = "Редактирование протокола передачи";
@@ -119,6 +120,10 @@ namespace ExampleApp.ViewModels
             };
             Simulator simulator = new Simulator(protocol);
             DecodedMessageData decodedMessageData = simulator.Simulate(16, 5, slicer, new TimeData(600, 100, 250));
+
+            Statistics.TotalMessages = decodedMessageData.GetSize();
+            Statistics.FileLength = slicer.GetSize();
+            
             Dictionary<string, List<ObservablePoint>> messagePlots = new Dictionary<string, List<ObservablePoint>>();
             Dictionary<string, List<ObservablePoint>> filePlots = new Dictionary<string, List<ObservablePoint>>();
 
@@ -151,8 +156,11 @@ namespace ExampleApp.ViewModels
                 }
             }
 
+            int totalTime = slicer.GetSize() * 250;
             foreach (string s in messagePlots.Keys)
             {
+                Statistics.ParameterStats.Add(s, new ParameterStatistics((double)messagePlots[s].Count / totalTime));
+                
                 Charts.Add(new PlotWithName
                 {
                     Name = s,
