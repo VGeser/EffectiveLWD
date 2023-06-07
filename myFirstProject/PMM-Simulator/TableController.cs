@@ -8,11 +8,9 @@ public class TableController
     private readonly RuleTable _table;
     private readonly Encoder _encoder;
 
-    public TableController(String filename, RuleTable table)
+    public TableController(Slicer slicer, RuleTable table)
     {
-        LLasParserVlasov parser = new LLasParserVlasov();
-        parser.ReadFile(filename, "utf-8");
-        _slicer = new Slicer(parser.Data);
+        _slicer = slicer;
         _table = table;
         _encoder = new Encoder();
     }

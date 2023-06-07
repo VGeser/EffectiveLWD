@@ -55,7 +55,7 @@ namespace ExampleApp.ViewModels
         private void OnCreateRuleCommandExecuted(object p)
         {
             var ruleMaxIndex = Rules.Count + 1;
-            var conditions = Enumerable.Range(1, 1).Select(i => new ProtocolSelectCondition
+            var conditions = Enumerable.Range(1, 1).Select(_ => new ProtocolSelectCondition
             {
                 isRotor = false,
                 isStat = true,
@@ -64,7 +64,7 @@ namespace ExampleApp.ViewModels
                 InitialPasses = 5,
             });
 
-            var parameters = Enumerable.Range(1, 1).Select(i => new ProtocolParameter
+            var parameters = Enumerable.Range(1, 1).Select(_ => new ProtocolParameter
             {
                 Name = "Name",
                 RangeFrom = 1,
@@ -109,13 +109,18 @@ namespace ExampleApp.ViewModels
             LLasParserVlasov parserVlasov = new LLasParserVlasov();
             parserVlasov.ReadFile(Download.f_name, "utf-8");
             Slicer slicer = new Slicer(parserVlasov.Data);
-            ProtocolData protocol = new ProtocolData();
-            protocol.ProtocolRules = Rules;
+            if (slicer.ContainsNull("PRES") != -1)
+            {
+                throw new Exception(slicer.ContainsNull("PRES").ToString());
+            }
+            ProtocolData protocol = new ProtocolData
+            {
+                ProtocolRules = Rules
+            };
             Simulator simulator = new Simulator(protocol);
-            DecodedMessageData decodedMessageData = simulator.Simulate(16, 5, Download.f_name, new TimeData(1000, 200, 500));
+            DecodedMessageData decodedMessageData = simulator.Simulate(16, 5, slicer, new TimeData(600, 100, 250));
             Dictionary<string, List<ObservablePoint>> messagePlots = new Dictionary<string, List<ObservablePoint>>();
-            Dictionary<string, List<ObservablePoint>> filePlots
-                = new Dictionary<string, List<ObservablePoint>>();
+            Dictionary<string, List<ObservablePoint>> filePlots = new Dictionary<string, List<ObservablePoint>>();
 
             foreach (string s in slicer.GetSlice(0).Keys)
             {
@@ -128,7 +133,7 @@ namespace ExampleApp.ViewModels
                 Dictionary<String, Double?> slice = slicer.GetSlice(i);
                 foreach (var variable in slice.Keys)
                 {
-                    filePlots[variable].Add(new ObservablePoint(i * 4000, slice[variable]));
+                    filePlots[variable].Add(new ObservablePoint(i * 250, slice[variable]));
                 }
             }
 
@@ -181,7 +186,7 @@ namespace ExampleApp.ViewModels
             StartSimulationCommand = new LambdaCommand(OnStartSimulationCommandExecuted, CanStartSimulationCommandExecuted);
 
 
-            var conditions = Enumerable.Range(1, 1).Select(i => new ProtocolSelectCondition
+            var conditions = Enumerable.Range(1, 1).Select(_ => new ProtocolSelectCondition
             {
                 isRotor = true,
                 isStat = true,
@@ -190,7 +195,7 @@ namespace ExampleApp.ViewModels
                 InitialPasses = 0,
             });
 
-            var parameters = Enumerable.Range(1, 1).Select(i => new ProtocolParameter
+            var parameters = Enumerable.Range(1, 1).Select(_ => new ProtocolParameter
             {
                 Name = "PRES",
                 RangeFrom = 0,

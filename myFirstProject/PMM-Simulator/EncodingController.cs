@@ -20,7 +20,7 @@ public class EncodingController
         String? message = "";
         while (message != null)
         {
-            int currentSlice = _currentTime / 4000;
+            int currentSlice = _currentTime / 250;
             message = _tableController.CreateMessageFromSlice(currentSlice, _conditionSupplier);
             int elapsed = _timeCalculator.CalculateTime(message ?? "");
             if(message != null)

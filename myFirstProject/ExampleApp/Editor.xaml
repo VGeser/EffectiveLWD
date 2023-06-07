@@ -91,6 +91,7 @@
                     </GroupBox>
                     <GroupBox Grid.Column="1" Header ="{Binding Series.Name}">
                         <wpf:CartesianChart 
+                            ZoomMode="X"
                             Series="{Binding Series.Plot}">
                         </wpf:CartesianChart>
                     </GroupBox>

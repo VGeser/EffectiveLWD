@@ -13,7 +13,7 @@ public class Simulator
         _protocol = protocol;
     }
     
-    public DecodedMessageData Simulate(int radix, int binSize, string filename, TimeData timeData)
+    public DecodedMessageData Simulate(int radix, int binSize, Slicer slicer, TimeData timeData)
     {
         RuleTable table = new RuleTable();
         int id = 0;
@@ -34,9 +34,8 @@ public class Simulator
             id++;
         }
 
-        TableController tableController = new TableController(filename, table);
+        TableController tableController = new TableController(slicer, table);
         TimeCalculator timeCalculator = new TimeCalculator(timeData);
-        Encoder encoder = new Encoder();
         EncodingController encodingController = new EncodingController(tableController, timeCalculator);
 
         Decoder decoder = new Decoder(table);
