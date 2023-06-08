@@ -6,7 +6,7 @@
         xmlns:vm="clr-namespace:ExampleApp.ViewModels"
         xmlns:wpf="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
         mc:Ignorable="d"
-        Title="Editor" 
+        Title="LWD GUI" 
         Height="450" Width="800">
     <Window.DataContext>
         <vm:MainWindowViewModel/>
@@ -40,6 +40,7 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition></RowDefinition>
                                     <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
                                 </Grid.RowDefinitions>
                                 <GroupBox Grid.Row="0" Header="Условия передачи" FontWeight="Bold">
                                     <DataGrid Grid.Row="0" ItemsSource="{Binding SelectedRule.SelectCondition}" AutoGenerateColumns="False" GridLinesVisibility="None" FontWeight="Thin">
@@ -68,6 +69,15 @@
                                         </DataGrid.Columns>
                                     </DataGrid>
                                 </GroupBox>
+                                <GroupBox Grid.Row="2" Header="Настройка временных промежутков" FontWeight="Bold">
+                                    <DataGrid ItemsSource="{Binding Times}" AutoGenerateColumns="False" GridLinesVisibility="None" Grid.Row="1" FontWeight="Thin">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Synchro" Binding="{Binding Synchro}" IsReadOnly="False"/>
+                                            <DataGridTextColumn Header="Tick" Binding="{Binding Tick}" IsReadOnly="False"/>
+                                            <DataGridTextColumn Header="Start" Binding="{Binding Start}" IsReadOnly="False"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </GroupBox>
                             </Grid>
                         </DockPanel>
                     </GroupBox>
@@ -78,10 +88,11 @@
             <!--         Series="{Binding Series}"> -->
             <!--     </wpf:CartesianChart> -->
             <!-- </TabItem> -->
-            <TabItem Header="Графички мои любимые">
+            <TabItem Header="Результаты">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="250"/>
+                        <ColumnDefinition Width="350"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <GroupBox Grid.Column="0" Header="Мнемоники">
@@ -94,6 +105,10 @@
                             ZoomMode="X"
                             Series="{Binding Series.Plot}">
                         </wpf:CartesianChart>
+                    </GroupBox>
+                    <GroupBox Grid.Column="2" Header="Статистики">
+                        <ListBox ItemsSource="{Binding Path=Statistics}" 
+                                 DisplayMemberPath="Name"/>
                     </GroupBox>
                 </Grid>
             </TabItem>
