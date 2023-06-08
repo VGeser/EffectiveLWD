@@ -241,7 +241,12 @@ namespace ExampleApp.ViewModels
             var plots = new List<PlotWithName>();
             Charts = new ObservableCollection<PlotWithName>(plots);
             _statistics = new SimulationStatistics();
-            _times = new SimulationTimes();
+            _times = new SimulationTimes
+            {
+                Synchro = 1000,
+                Start = 100,
+                Tick = 400
+            };
         }
     }
 }
