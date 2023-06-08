@@ -21,7 +21,7 @@ public class TimeCalculator
             }
 
             sum += _timeData.Start;
-            int ticks = symbol is >= '0' and <= '9' ? symbol - 0 : symbol - 'a' + 10;
+            int ticks = symbol is >= '0' and <= '9' ? symbol - '0' : symbol - 'a' + 10;
             sum += ticks * _timeData.Tick;
         }
 

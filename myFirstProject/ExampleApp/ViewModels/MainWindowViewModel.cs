@@ -24,7 +24,9 @@ namespace ExampleApp.ViewModels
 
         private PlotWithName _series;
 
-        public SimulationStatistics Statistics = new();
+        private SimulationStatistics _statistics;
+
+        private SimulationTimes _times;
 
         public ProtocolRule SelectedRule
         {
@@ -36,6 +38,18 @@ namespace ExampleApp.ViewModels
         {
             get => _series;
             set => Set(ref _series, value);
+        }
+        
+        public SimulationStatistics Statistics
+        {
+            get => _statistics;
+            set => Set(ref _statistics, value);
+        }
+
+        public SimulationTimes Times
+        {
+            get => _times;
+            set => Set(ref _times, value);
         }
         /* #region Заголовок окна
 
@@ -119,7 +133,7 @@ namespace ExampleApp.ViewModels
                 ProtocolRules = Rules
             };
             Simulator simulator = new Simulator(protocol);
-            DecodedMessageData decodedMessageData = simulator.Simulate(16, 5, slicer, new TimeData(600, 100, 250));
+            DecodedMessageData decodedMessageData = simulator.Simulate(16, 5, slicer, new TimeData(Times.Synchro, Times.Tick, Times.Start));
 
             Statistics.TotalMessages = decodedMessageData.GetSize();
             Statistics.FileLength = slicer.GetSize();
@@ -226,6 +240,8 @@ namespace ExampleApp.ViewModels
 
             var plots = new List<PlotWithName>();
             Charts = new ObservableCollection<PlotWithName>(plots);
+            _statistics = new SimulationStatistics();
+            _times = new SimulationTimes();
         }
     }
 }
