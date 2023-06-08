@@ -6,7 +6,7 @@ namespace ExampleApp;
 
 public class Simulator
 {
-    private ProtocolData _protocol;
+    private readonly ProtocolData _protocol;
 
     public Simulator(ProtocolData protocol)
     {
@@ -28,7 +28,7 @@ public class Simulator
             {
                 EncodingHistogram histogram = EncodingHistogramCreatorWithNormal.Create(binSize, parameter.Step,
                     parameter.RangeFrom, parameter.RangeTo, parameter.CenterBinStart, radix, int.Parse(parameter.Symbols));
-                encodedParameters.Add(new Entry.SimpleEncodedParameter(parameter.Name, radix, int.Parse(parameter.Symbols), histogram));
+                encodedParameters.Add(new Entry.StepChangingEncodedParameter(parameter.Name, int.Parse(parameter.Symbols), histogram, parameter.Step));
             }
             table.AddRule(new Entry(condition, boundaries, new Entry.Parameters(encodedParameters), id));
             id++;

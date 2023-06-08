@@ -16,7 +16,7 @@ namespace ExampleApp.Model
 
         public int CenterBinStart { get; set; }
 
-        public int Step { get; set; }
+        public double Step { get; set; }
 
         public string Symbols { get; set; }
     }
