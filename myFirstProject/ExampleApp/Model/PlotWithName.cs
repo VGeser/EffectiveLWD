@@ -8,4 +8,6 @@ public class PlotWithName
     public string Name { get; set; }
 
     public List<ISeries> Plot { get; set; }
+    
+    public ParameterStatistics Statistics { get; set; } 
 }

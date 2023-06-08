@@ -102,7 +102,7 @@
                                             Synchro:
                                         </Label>
                                         <TextBox Grid.Row="0" Grid.Column="1"
-                                                 Margin="0,5,10,5" Text="{Binding Times.Synchro}"/>
+                                                 Margin="0,5,10,5" Text="{Binding Times.Synchro}" />
 
                                         <Label Grid.Column="0" Grid.Row="1">
                                             Start:
@@ -141,8 +141,38 @@
                         </wpf:CartesianChart>
                     </GroupBox>
                     <GroupBox Grid.Column="2" Header="Статистики">
-                        <ListBox ItemsSource="{Binding Path=Statistics}"
-                                 DisplayMemberPath="Name" />
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <GroupBox Grid.Row="0">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Grid.Row="0" Content="Message ttl" />
+                                    <Label Grid.Column="0" Grid.Row="1" Content="File length" />
+                                    <Label Grid.Column="1" Grid.Row="0" Content="{Binding Statistics.TotalMessages}" />
+                                    <Label Grid.Column="1" Grid.Row="1" Content="{Binding Statistics.FileLength}" />
+                                </Grid>
+                            </GroupBox>
+                            <GroupBox Grid.Row="1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Grid.Row="0" Content="Points/hour"/>
+                                    <Label Grid.Column="1" Grid.Row="0" Content="{Binding Series.Statistics.PointsPerHour}" />
+                                </Grid>
+                            </GroupBox>
+                        </Grid>
                     </GroupBox>
                 </Grid>
             </TabItem>

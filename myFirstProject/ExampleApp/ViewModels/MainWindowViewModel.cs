@@ -173,9 +173,6 @@ namespace ExampleApp.ViewModels
             int totalTime = slicer.GetSize() * 250;
             foreach (string s in messagePlots.Keys)
             {
-                Statistics.ParameterStats.Remove(s);
-                Statistics.ParameterStats.Add(s, new ParameterStatistics((double)messagePlots[s].Count / totalTime));
-                
                 Charts.Add(new PlotWithName
                 {
                     Name = s,
@@ -195,7 +192,8 @@ namespace ExampleApp.ViewModels
                             GeometryFill = null,
                             GeometryStroke = null
                         }
-                    }
+                    },
+                    Statistics = new ParameterStatistics((double)messagePlots[s].Count * 60 * 60 * 1000 / totalTime)
                 });
             }
 
