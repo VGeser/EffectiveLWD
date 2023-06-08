@@ -6,35 +6,37 @@
         xmlns:vm="clr-namespace:ExampleApp.ViewModels"
         xmlns:wpf="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
         mc:Ignorable="d"
-        Title="LWD GUI" 
+        Title="LWD GUI"
         Height="450" Width="800">
     <Window.DataContext>
-        <vm:MainWindowViewModel/>
+        <vm:MainWindowViewModel />
     </Window.DataContext>
     <Grid>
         <TabControl>
             <TabItem Header="Редактор правил">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="250"/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="250" />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <GroupBox Grid.Column="0" Header="Правила">
                         <DockPanel>
                             <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0,3">
-                                <Button Content="Добавить" Margin="0,0,3,0" Command="{Binding CreateRuleCommand}"/>
-                                <Button Content="Удалить" Command="{Binding DeleteRuleCommand}" CommandParameter="{Binding SelectedRule}"/>
+                                <Button Content="Добавить" Margin="0,0,3,0" Command="{Binding CreateRuleCommand}" />
+                                <Button Content="Удалить" Command="{Binding DeleteRuleCommand}"
+                                        CommandParameter="{Binding SelectedRule}" />
                                 <!--> <Button Content="Simulation moment" Command="{Binding StartSimulationCommand}"/> -->
                             </UniformGrid>
-                            <ListBox ItemsSource="{Binding Rules}" 
-                                 DisplayMemberPath="Name"
-                                 SelectedItem="{Binding SelectedRule}"/>
+                            <ListBox ItemsSource="{Binding Rules}"
+                                     DisplayMemberPath="Name"
+                                     SelectedItem="{Binding SelectedRule}" />
                         </DockPanel>
                     </GroupBox>
-                    <GroupBox Grid.Column="1" Header ="{Binding SelectedRule.Name, StringFormat='Параметры правила {0}', FallbackValue='Параметры', TargetNullValue= 'Правило не выбрано'}">
+                    <GroupBox Grid.Column="1"
+                              Header="{Binding SelectedRule.Name, StringFormat='Параметры правила {0}', FallbackValue='Параметры', TargetNullValue= 'Правило не выбрано'}">
                         <DockPanel>
                             <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0,3">
-                                <Button Content="Симуляция" Command="{Binding StartSimulationCommand}"/>
+                                <Button Content="Симуляция" Command="{Binding StartSimulationCommand}" />
                             </UniformGrid>
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -43,76 +45,107 @@
                                     <RowDefinition></RowDefinition>
                                 </Grid.RowDefinitions>
                                 <GroupBox Grid.Row="0" Header="Условия передачи" FontWeight="Bold">
-                                    <DataGrid Grid.Row="0" ItemsSource="{Binding SelectedRule.SelectCondition}" AutoGenerateColumns="False" GridLinesVisibility="None" FontWeight="Thin">
+                                    <DataGrid ItemsSource="{Binding SelectedRule.SelectCondition}"
+                                              AutoGenerateColumns="False" GridLinesVisibility="None" FontWeight="Thin">
                                         <DataGrid.Columns>
                                             <!--> <DataGridCheckBoxColumn Header="isRotor" Binding="{Binding isRotor}"/> -->
                                             <!--> <DataGridTextColumn Header="isRotor" Binding="{Binding isRotor}" IsReadOnly="False"/>-->
-                                            <DataGridTextColumn Header="isRotor" Binding="{Binding isRotor}" IsReadOnly="False"/>
-                                            <DataGridTextColumn Header="isStat" Binding="{Binding isStat}" IsReadOnly="False"/>
-                                            <DataGridTextColumn Header="isTfgFlag" Binding="{Binding isTfgFlag}" IsReadOnly="False"/>
-                                            <DataGridTextColumn Header="Frequency" Binding="{Binding Frequency}" IsReadOnly="False"/>
-                                            <DataGridTextColumn Header="Initial Passes" Binding="{Binding InitialPasses}" IsReadOnly="False"/>
+                                            <DataGridTextColumn Header="isRotor" Binding="{Binding isRotor}"
+                                                                IsReadOnly="False" />
+                                            <DataGridTextColumn Header="isStat" Binding="{Binding isStat}"
+                                                                IsReadOnly="False" />
+                                            <DataGridTextColumn Header="isTfgFlag" Binding="{Binding isTfgFlag}"
+                                                                IsReadOnly="False" />
+                                            <DataGridTextColumn Header="Frequency" Binding="{Binding Frequency}"
+                                                                IsReadOnly="False" />
+                                            <DataGridTextColumn Header="Initial Passes"
+                                                                Binding="{Binding InitialPasses}" IsReadOnly="False" />
                                         </DataGrid.Columns>
                                     </DataGrid>
                                 </GroupBox>
                                 <GroupBox Grid.Row="1" Header="Код параметра" FontWeight="Bold">
-                                    <DataGrid ItemsSource="{Binding SelectedRule.Parameters}" AutoGenerateColumns="False" GridLinesVisibility="None" Grid.Row="1" FontWeight="Thin">
+                                    <DataGrid ItemsSource="{Binding SelectedRule.Parameters}"
+                                              AutoGenerateColumns="False" GridLinesVisibility="None"
+                                              FontWeight="Thin">
                                         <DataGrid.Columns>
                                             <!--> <DataGridCheckBoxColumn Header="isRotor" Binding="{Binding isRotor}"/>-->
                                             <!--> <DataGridTextColumn Header="isRotor" Binding="{Binding isRotor}" IsReadOnly="False"/>-->
-                                            <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="False"/>
-                                            <DataGridTextColumn Header="Range From " Binding="{Binding RangeFrom}" IsReadOnly="False"/>
-                                            <DataGridTextColumn Header="Range To" Binding="{Binding RangeTo}" IsReadOnly="False"/>
-                                            <DataGridTextColumn Header="Center Bin Start" Binding="{Binding CenterBinStart}" IsReadOnly="False"/>
-                                            <DataGridTextColumn Header="Step" Binding="{Binding Step}" IsReadOnly="False"/>
-                                            <DataGridTextColumn Header="Symbols" Binding="{Binding Symbols}" IsReadOnly="False"/>
+                                            <DataGridTextColumn Header="Name" Binding="{Binding Name}"
+                                                                IsReadOnly="False" />
+                                            <DataGridTextColumn Header="Range From " Binding="{Binding RangeFrom}"
+                                                                IsReadOnly="False" />
+                                            <DataGridTextColumn Header="Range To" Binding="{Binding RangeTo}"
+                                                                IsReadOnly="False" />
+                                            <DataGridTextColumn Header="Center Bin Start"
+                                                                Binding="{Binding CenterBinStart}" IsReadOnly="False" />
+                                            <DataGridTextColumn Header="Step" Binding="{Binding Step}"
+                                                                IsReadOnly="False" />
+                                            <DataGridTextColumn Header="Symbols" Binding="{Binding Symbols}"
+                                                                IsReadOnly="False" />
                                         </DataGrid.Columns>
                                     </DataGrid>
                                 </GroupBox>
                                 <GroupBox Grid.Row="2" Header="Настройка временных промежутков" FontWeight="Bold">
-                                    <DataGrid ItemsSource="{Binding Times}" AutoGenerateColumns="False" GridLinesVisibility="None" Grid.Row="1" FontWeight="Thin">
-                                        <DataGrid.Columns>
-                                            <DataGridTextColumn Header="Synchro" Binding="{Binding Synchro}" IsReadOnly="False"/>
-                                            <DataGridTextColumn Header="Tick" Binding="{Binding Tick}" IsReadOnly="False"/>
-                                            <DataGridTextColumn Header="Start" Binding="{Binding Start}" IsReadOnly="False"/>
-                                        </DataGrid.Columns>
-                                    </DataGrid>
+                                    <!-- <DataGrid ItemsSource="{Binding Times}" AutoGenerateColumns="False" GridLinesVisibility="None" Grid.Row="1" FontWeight="Thin"> -->
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="30" />
+                                            <RowDefinition Height="30" />
+                                            <RowDefinition Height="30" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label>
+                                            Synchro:
+                                        </Label>
+                                        <TextBox Grid.Row="0" Grid.Column="1"
+                                                 Margin="0,5,10,5" Text="{Binding Times.Synchro}"/>
+
+                                        <Label Grid.Column="0" Grid.Row="1">
+                                            Start:
+                                        </Label>
+                                        <TextBox Grid.Row="1" Grid.Column="1"
+                                                 Margin="0,5,10,5" Text="{Binding Times.Start}" />
+                                        <Label Grid.Column="0" Grid.Row="2">
+                                            Tick:
+                                        </Label>
+                                        <TextBox Grid.Row="2" Grid.Column="1"
+                                                 Margin="0,5,10,5" Text="{Binding Times.Tick}" />
+                                    </Grid>
+                                    <!-- </DataGrid> -->
                                 </GroupBox>
                             </Grid>
                         </DockPanel>
                     </GroupBox>
                 </Grid>
             </TabItem>
-            <!-- <TabItem Header="Результаты"> -->
-            <!--     <wpf:CartesianChart -->
-            <!--         Series="{Binding Series}"> -->
-            <!--     </wpf:CartesianChart> -->
-            <!-- </TabItem> -->
             <TabItem Header="Результаты">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="250"/>
-                        <ColumnDefinition Width="350"/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="250" />
+                        <ColumnDefinition Width="350" />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <GroupBox Grid.Column="0" Header="Мнемоники">
-                        <ListBox ItemsSource="{Binding Charts}" 
+                        <ListBox ItemsSource="{Binding Charts}"
                                  DisplayMemberPath="Name"
-                                 SelectedItem="{Binding Series}"/>
+                                 SelectedItem="{Binding Series}" />
                     </GroupBox>
-                    <GroupBox Grid.Column="1" Header ="{Binding Series.Name}">
-                        <wpf:CartesianChart 
+                    <GroupBox Grid.Column="1" Header="{Binding Series.Name}">
+                        <wpf:CartesianChart
                             ZoomMode="X"
                             Series="{Binding Series.Plot}">
                         </wpf:CartesianChart>
                     </GroupBox>
                     <GroupBox Grid.Column="2" Header="Статистики">
-                        <ListBox ItemsSource="{Binding Path=Statistics}" 
-                                 DisplayMemberPath="Name"/>
+                        <ListBox ItemsSource="{Binding Path=Statistics}"
+                                 DisplayMemberPath="Name" />
                     </GroupBox>
                 </Grid>
             </TabItem>
         </TabControl>
     </Grid>
 </Window>
-

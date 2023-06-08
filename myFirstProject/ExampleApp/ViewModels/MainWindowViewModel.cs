@@ -232,7 +232,6 @@ namespace ExampleApp.ViewModels
             {
                 Name = $"Правило {i}",
                 SelectCondition = new List<ProtocolSelectCondition>(conditions),
-
                 Parameters = new List<ProtocolParameter> (parameters)
             });
 
@@ -240,13 +239,9 @@ namespace ExampleApp.ViewModels
 
             var plots = new List<PlotWithName>();
             Charts = new ObservableCollection<PlotWithName>(plots);
+            
             _statistics = new SimulationStatistics();
-            _times = new SimulationTimes
-            {
-                Synchro = 1000,
-                Start = 100,
-                Tick = 400
-            };
+            _times = new SimulationTimes();
         }
     }
 }
