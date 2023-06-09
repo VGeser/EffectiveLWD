@@ -86,7 +86,16 @@
                                     </DataGrid>
                                 </GroupBox>
                                 <GroupBox Grid.Row="2" Header="Настройка временных промежутков" FontWeight="Bold">
-                                    <!-- <DataGrid ItemsSource="{Binding Times}" AutoGenerateColumns="False" GridLinesVisibility="None" Grid.Row="1" FontWeight="Thin"> -->
+                                    <!-- <DataGrid ItemsSource="{Binding Times}" AutoGenerateColumns="False" GridLinesVisibility="None" Grid.Row="2" FontWeight="Thin">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Synchro" Binding="{Binding Times.Synchro}"
+                                                                IsReadOnly="False" />
+                                        <DataGridTextColumn Header="Start" Binding="{Binding Times.Start}"
+                                                                IsReadOnly="False" />
+                                        <DataGridTextColumn Header="Tick" Binding="{Binding Times.Tick}"
+                                                                IsReadOnly="False" />
+                                        </DataGrid.Columns>
+                                    </DataGrid> -->
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="30" />
@@ -97,25 +106,23 @@
                                             <ColumnDefinition />
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
-
-                                        <Label>
+                                        <Label FontWeight="Light">
                                             Synchro:
                                         </Label>
                                         <TextBox Grid.Row="0" Grid.Column="1"
-                                                 Margin="0,5,10,5" Text="{Binding Times.Synchro}" />
+                                                 Margin="0,5,10,5" Text="{Binding Times.Synchro}" FontWeight="Light"/>
 
-                                        <Label Grid.Column="0" Grid.Row="1">
+                                        <Label Grid.Column="0" Grid.Row="1" FontWeight="Light">
                                             Start:
                                         </Label>
                                         <TextBox Grid.Row="1" Grid.Column="1"
-                                                 Margin="0,5,10,5" Text="{Binding Times.Start}" />
-                                        <Label Grid.Column="0" Grid.Row="2">
+                                                 Margin="0,5,10,5" Text="{Binding Times.Start}" FontWeight="Light" />
+                                        <Label Grid.Column="0" Grid.Row="2" FontWeight="Light">
                                             Tick:
                                         </Label>
                                         <TextBox Grid.Row="2" Grid.Column="1"
-                                                 Margin="0,5,10,5" Text="{Binding Times.Tick}" />
+                                                 Margin="0,5,10,5" Text="{Binding Times.Tick}" FontWeight="Light" />
                                     </Grid>
-                                    <!-- </DataGrid> -->
                                 </GroupBox>
                             </Grid>
                         </DockPanel>
@@ -141,12 +148,12 @@
                         </wpf:CartesianChart>
                     </GroupBox>
                     <GroupBox Grid.Column="2" Header="Статистики">
-                        <Grid>
+                        <!--  <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <GroupBox Grid.Row="0">
+                             </Grid.RowDefinitions> -->
+                        <!-- <GroupBox Grid.Row="0">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition></RowDefinition>
@@ -173,6 +180,15 @@
                                 </Grid>
                             </GroupBox>
                         </Grid>
+                       -->
+                        <StackPanel>
+                            <TextBlock Text="Message ttl" FontWeight="Bold" />
+                            <TextBlock Text="{Binding Statistics.TotalMessages}"/>
+                            <TextBlock Text="File length" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding Statistics.FileLength}" />
+                            <TextBlock Text="Points/hour" FontWeight="Bold" />
+                            <TextBlock Text="{Binding Series.Statistics.PointsPerHour}" />
+                        </StackPanel>
                     </GroupBox>
                 </Grid>
             </TabItem>

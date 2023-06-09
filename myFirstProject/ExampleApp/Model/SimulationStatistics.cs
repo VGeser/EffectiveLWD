@@ -1,3 +1,4 @@
+using ExampleApp.ViewModels.Base;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -37,7 +38,7 @@ public class SimulationStatistics : INotifyPropertyChanged
         _totalMessages = 0;
         _fileLength = 0;
     }
-    
+
     public event PropertyChangedEventHandler? PropertyChanged;
 
     private void OnPropertyChanged([CallerMemberName] string? propertyName = "")
