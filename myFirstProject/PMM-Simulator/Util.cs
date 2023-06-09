@@ -19,14 +19,11 @@ public static class Util
             return total;
         }
 
-        else if (n == 0 && target == 0)
+        if (n == 0 && target == 0)
         {
             List<List<Int32>> r = new List<List<int>> { result };
             return r;
         }
-        else
-        {
-            return new List<List<Int32>>();
-        }
+        return new List<List<Int32>>();
     }
 }

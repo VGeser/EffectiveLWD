@@ -22,8 +22,14 @@ public class Decoder
         {
             int len = parameter.Symbols;
             string fromMessage = message.Substring(0, len);
+            List<int> encoded = new List<int>();
+            for (int i = 0; i < fromMessage.Length; i++)
+            {
+                int num = Transcribe(fromMessage.Substring(i, 1));
+                encoded.Add(num);
+            }
+            result.Add(parameter.Mnemonic, parameter.Decode(encoded));
             message = message.Substring(len);
-            result.Add(parameter.Mnemonic, parameter.Decode(fromMessage));
         }
 
         return result;
@@ -32,5 +38,16 @@ public class Decoder
     private Entry GetTableEntryByMarker(String marker)
     {
         return _table.GetRuleByIndex(int.Parse(marker));
+    }
+    
+    private int Transcribe(string s)
+    {
+        char c = s[0];
+        if (c is >= '0' and <= '9')
+        {
+            return c - '0';
+        }
+
+        return c - 'a' + 10;
     }
 }

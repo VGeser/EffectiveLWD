@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace ExampleApp
 {
     /// <summary>
-    /// Логика взаимодействия для Result.xaml
+    /// Логика взаимодействия для Editor.xaml
     /// </summary>
-    public partial class Result : Page
+    public partial class Editor : Window
     {
-        public Result()
+        public Editor()
         {
             InitializeComponent();
         }

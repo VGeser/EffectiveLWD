@@ -69,87 +69,79 @@
 
         public abstract class EncodedParameter
         {
-            protected readonly int _radix;
             public int Symbols { get; }
-            protected readonly EncodingHistogram _histogram;
+            protected readonly EncodingHistogram Histogram;
             public readonly string Mnemonic;
 
-            protected EncodedParameter(string mnemonic, int radix, int symbols, EncodingHistogram histogram)
+            protected EncodedParameter(string mnemonic, int symbols, EncodingHistogram histogram)
             {
-                _histogram = histogram;
+                Histogram = histogram;
                 Mnemonic = mnemonic;
                 Symbols = symbols;
-                _radix = radix;
             }
 
             public abstract int ToRepresentation(double? value);
 
             //TODO decoding for every subtype!
-            public virtual double Decode(String message)
-            {
-                return 0;
-            }
+            public abstract double Decode(List<Int32> message);
 
-            public List<Int32> Lookup(Int32 repres)
-            {
-                return _histogram.Lookup(repres, _radix, Symbols);
-            }
+            public abstract List<Int32> Lookup(Int32 repres);
         }
 
-        public class SimpleEncodedParameter : EncodedParameter
-        {
-            public override int ToRepresentation(double? value)
-            {
-                
-                if(value is not null)
-                {
-                    return (int) Math.Round(value.Value); 
-                    // есть еще Floor, который округлит 3.9 -> 3
-                }
-                throw new  ArgumentNullException();
-            }
-
-            public override double Decode(String message)
-            {
-                List<int> encoded = new List<int>();
-                int sum = 0;
-                for (int i = 0; i < message.Length; i++)
-                {
-                    int num = int.Parse(message.Substring(i, 1));
-                    sum += num;
-                    encoded.Add(num);
-                }
-
-                int index = -1;
-                List<List<int>> possible = Util.GetEncodings(new List<int>(), Symbols, sum, _radix);
-                foreach (var VARIABLE in possible)
-                {
-                    int equal = 0;
-                    for (int i = 0; i < Symbols; i++)
-                    {
-                        if (encoded[i] == VARIABLE[i]) equal++;
-                    }
-
-                    if (equal == Symbols)
-                    {
-                        index = possible.IndexOf(VARIABLE);
-                        break;
-                    }
-                }
-                return (double)_histogram.getRepresByIndex(sum, index);
-            }
-
-            public SimpleEncodedParameter(string mnemonic, int radix, int symbols, EncodingHistogram histogram) : 
-                base(mnemonic, radix, symbols, histogram)
-            {
-                
-            }
-        }
+        // public class SimpleEncodedParameter : EncodedParameter
+        // {
+        //     public override int ToRepresentation(double? value)
+        //     {
+        //         
+        //         if(value is not null)
+        //         {
+        //             return (int) Math.Round(value.Value); 
+        //             // есть еще Floor, который округлит 3.9 -> 3
+        //         }
+        //         throw new  ArgumentNullException();
+        //     }
+        //
+        //     public override double Decode(String message)
+        //     {
+        //         List<int> encoded = new List<int>();
+        //         int sum = 0;
+        //         for (int i = 0; i < message.Length; i++)
+        //         {
+        //             int num = int.Parse(message.Substring(i, 1));
+        //             sum += num;
+        //             encoded.Add(num);
+        //         }
+        //
+        //         int index = -1;
+        //         List<List<int>> possible = Util.GetEncodings(new List<int>(), Symbols, sum, _radix);
+        //         foreach (var VARIABLE in possible)
+        //         {
+        //             int equal = 0;
+        //             for (int i = 0; i < Symbols; i++)
+        //             {
+        //                 if (encoded[i] == VARIABLE[i]) equal++;
+        //             }
+        //
+        //             if (equal == Symbols)
+        //             {
+        //                 index = possible.IndexOf(VARIABLE);
+        //                 break;
+        //             }
+        //         }
+        //         return (double)_histogram.GetRepresByIndex(sum, index);
+        //     }
+        //
+        //     public SimpleEncodedParameter(string mnemonic, int radix, int symbols, EncodingHistogram histogram) : 
+        //         base(mnemonic, radix, symbols, histogram)
+        //     {
+        //         
+        //     }
+        // }
 
         public class StepChangingEncodedParameter : EncodedParameter
         {
-            public StepChangingEncodedParameter(string mnemonic, int radix, int symbols, EncodingHistogram histogram, double requiredStep) : 
-                base(mnemonic, radix, symbols, histogram)
+            public StepChangingEncodedParameter(string mnemonic, int symbols, EncodingHistogram histogram, double requiredStep) : 
+                base(mnemonic, symbols, histogram)
             {
                 RequiredStep = requiredStep;
             }
@@ -159,11 +151,22 @@
             {
                 if (value is not null)
                 {
-                    double res = (value.Value / RequiredStep);
+                    double res = value.Value / RequiredStep;
                     int intRes = (int)Math.Round(res);
-                    return (int) (intRes * RequiredStep);
+                    return intRes;
                 }
                 throw new  ArgumentNullException();
+            }
+
+            public override double Decode(List<int> encoded)
+            {
+                
+                return RequiredStep * Histogram.Decode(encoded);
+            }
+
+            public override List<int> Lookup(int repres)
+            {
+                return Histogram.Lookup(repres);
             }
         }
 

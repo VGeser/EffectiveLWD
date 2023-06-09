@@ -50,7 +50,9 @@ namespace ExampleApp
         }
         private void Transition(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Table());
+            ///NavigationService.Navigate(new Table());
+            Editor editor = new Editor();
+            editor.Show();
 
         }
     }

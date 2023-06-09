@@ -25,15 +25,9 @@ public class Encoder
             return num.ToString();
         }
 
-        switch (num)
-        {
-            case 10: return "a";
-            case 11: return "b";
-            case 12: return "c";
-            case 13: return "d";
-            case 14: return "e";
-            case 15: return "f";
-            default: return "g";
-        }
+        char c = 'a';
+        c += (char)(num - 10);
+        char[] chars = { c };
+        return new string(chars);
     }
 }

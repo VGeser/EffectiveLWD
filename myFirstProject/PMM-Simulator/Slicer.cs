@@ -9,6 +9,11 @@ public class Slicer
         _curves = curves;
     }
 
+    public int ContainsNull(String mnem)
+    {
+        return Array.IndexOf(_curves[mnem], null);
+    }
+
     public Dictionary<String, Double?> GetSlice(int n)
     {
         Dictionary<String, Double?> res = new Dictionary<string, double?>();
@@ -18,5 +23,13 @@ public class Slicer
         }
 
         return res;
+    }
+
+    public int GetSize()
+    {
+        using var enumerator = _curves.Values.GetEnumerator();
+        enumerator.MoveNext();
+        var current = enumerator.Current;
+        return current.GetLength(0);
     }
 }
